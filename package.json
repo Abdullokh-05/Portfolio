@@ -1,0 +1,16 @@
+{
+  "name": "tashpulatov-portfolio",
+  "version": "1.0.0",
+  "description": "Abdullokh Tashpulatov — Graphic Designer & UI/UX Portfolio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
