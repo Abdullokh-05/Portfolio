@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Abdullokh Tashpulatov Portfolio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    /* Admin custom styles overriding style.css defaults */
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .admin-container {
+      flex: 1;
+      width: 100%;
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 24px;
+    }
+    
+    .auth-card {
+      max-width: 420px;
+      margin: 120px auto;
+      padding: 40px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+    }
+    
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .dashboard-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-style: italic;
+    }
+    
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 32px;
+    }
+    
+    @media (max-width: 992px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .editor-section, .list-section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+    
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    
+    .tab-btn.active {
+      background: rgba(197, 160, 89, 0.15);
+      color: var(--accent-gold);
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .project-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+      gap: 16px;
+    }
+    
+    .project-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .project-thumb {
+      width: 60px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .project-actions {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    /* Input adjustments for premium look */
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 12px;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--accent-gold);
+    }
+    
+    .form-select {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN WORKSPACE -->
+  <div class="admin-container">
+    
+    <!-- AUTHENTICATION FORM -->
+    <div id="authScreen" class="auth-card">
+      <h2 style="font-family: var(--font-heading); font-style: italic; margin-bottom: 8px; text-align: center;">Tizimga kirish</h2>
+      <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin-bottom: 24px;">Faqat admin uchun kirish ruxsati</p>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="admin@tashpulatov.design" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Parol</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+        </div>
+        
+        <div id="authStatus" class="form-status" style="margin-bottom: 16px;"></div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Kirish</button>
+      </form>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="dashboardScreen" class="hidden">
+      <div class="dashboard-header">
+        <div>
+          <h1 class="dashboard-title">Boshqaruv Paneli</h1>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Portfolio loyihalarini tahrirlash va yuklash</p>
+        </div>
+        <button id="logoutBtn" class="btn btn-outline">Chiqish</button>
+      </div>
+
+      <div class="admin-grid">
+        <!-- Project Editor -->
+        <div class="editor-section">
+          <h2 style="font-size: 1.25rem; margin-bottom: 20px;" id="editorTitle">Yangi loyiha qo'shish</h2>
+          
+          <form id="projectForm">
+            <input type="hidden" id="projectId">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="projCategory">Kategoriya</label>
+                <select id="projCategory" class="form-select" required>
+                  <option value="branding">Branding</option>
+                  <option value="smm">SMM</option>
+                  <option value="video">Video & Motion</option>
+                  <option value="ai">AI Art</option>
+                  <option value="uiux">UI/UX Dizayn</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="projType">Media turi</label>
+                <select id="projType" class="form-select" required>
+                  <option value="image">Rasm</option>
+                  <option value="video">Video</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Media Upload / URL -->
+            <div class="form-group">
+              <label>Loyiha rasmi</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="file" id="projFile" class="form-input" style="flex: 1;" accept="image/*">
+                <span style="align-self: center; color: var(--text-muted); font-size: 0.85rem;">yoki</span>
+                <input type="text" id="projImageUrl" class="form-input" style="flex: 1.5;" placeholder="Rasm URL manzili...">
+              </div>
+              <small style="color: var(--text-muted); display: block; margin-top: 4px;">Rasm yuklang yoki to'g'ridan-to'g'ri havolani joylashtiring</small>
+            </div>
+
+            <!-- Language tabs -->
+            <div class="tabs-nav">
+              <button type="button" class="tab-btn active" data-tab="langUz">Uzbekcha</button>
+              <button type="button" class="tab-btn" data-tab="langRu">Русский</button>
+              <button type="button" class="tab-btn" data-tab="langEn">English</button>
+            </div>
+
+            <!-- UZ TAB -->
+            <div id="langUz" class="tab-content active">
+              <div class="form-group">
+                <label for="projTitleUz">Sarlavha (UZ)</label>
+                <input type="text" id="projTitleUz" class="form-input" placeholder="Loyiha nomi" required>
+              </div>
+              <div class="form-group">
+                <label for="projTagsUz">Teglar (UZ)</label>
+                <input type="text" id="projTagsUz" class="form-input" placeholder="Dizayn · Brending" required>
+              </div>
+              <div class="form-group">
+                <label for="projTaskUz">Vazifa (UZ)</label>
+                <textarea id="projTaskUz" class="form-textarea" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="projSolutionUz">Yechim (UZ)</label>
+                <textarea id="projSolutionUz" class="form-textarea" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="projResultUz">Natija (UZ)</label>
+                <textarea id="projResultUz" class="form-textarea" rows="3" required></textarea>
+              </div>
+            </div>
+
+            <!-- RU TAB -->
+            <div id="langRu" class="tab-content">
+              <div class="form-group">
+                <label for="projTitleRu">Название (RU)</label>
+                <input type="text" id="projTitleRu" class="form-input" placeholder="Название проекта" required>
+              </div>
+              <div class="form-group">
+                <label for="projTagsRu">Теги (RU)</label>
+                <input type="text" id="projTagsRu" class="form-input" placeholder="Дизайн · Брендинг" required>
+              </div>
+              <div class="form-group">
+                <label for="projTaskRu">Задача (RU)</label>
+                <textarea id="projTaskRu" class="form-textarea" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="projSolutionRu">Решение (RU)</label>
+                <textarea id="projSolutionRu" class="form-textarea" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="projResultRu">Результат (RU)</label>
+                <textarea id="projResultRu" class="form-textarea" rows="3" required></textarea>
+              </div>
+            </div>
+
+            <!-- EN TAB -->
+            <div id="langEn" class="tab-content">
+              <div class="form-group">
+                <label for="projTitleEn">Title (EN)</label>
+                <input type="text" id="projTitleEn" class="form-input" placeholder="Project title" required>
+              </div>
+              <div class="form-group">
+                <label for="projTagsEn">Tags (EN)</label>
+                <input type="text" id="projTagsEn" class="form-input" placeholder="Design · Branding" required>
+              </div>
+              <div class="form-group">
+                <label for="projTaskEn">Task (EN)</label>
+                <textarea id="projTaskEn" class="form-textarea" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="projSolutionEn">Solution (EN)</label>
+                <textarea id="projSolutionEn" class="form-textarea" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="projResultEn">Result (EN)</label>
+                <textarea id="projResultEn" class="form-textarea" rows="3" required></textarea>
+              </div>
+            </div>
+
+            <div id="editorStatus" class="form-status" style="margin-bottom: 16px;"></div>
+
+            <div style="display: flex; gap: 12px; margin-top: 24px;">
+              <button type="button" id="cancelEditBtn" class="btn btn-outline hidden" style="flex: 1; justify-content: center;">Bekor qilish</button>
+              <button type="submit" id="saveProjectBtn" class="btn btn-primary" style="flex: 2; justify-content: center;">Saqlash</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Project List -->
+        <div class="list-section">
+          <h2 style="font-size: 1.25rem; margin-bottom: 20px;">Mavjud loyihalar (Supabase)</h2>
+          <div id="projectsList" style="display: flex; flex-direction: column;">
+            <p style="color: var(--text-muted); text-align: center; padding: 40px 0;">Yuklanmoqda...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Supabase UMD Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  
+  <script src="js/config.js"></script>
+  
+  <script>
+    (function() {
+      // 1. Initialize Supabase
+      const SUPABASE_URL = 'https://ypjxvtdtpwjcdnkofhsh.supabase.co';
+      const SUPABASE_ANON_KEY = typeof SUPABASE_CONFIG !== 'undefined' ? SUPABASE_CONFIG.ANON_KEY : '';
+      let supabase = null;
+      if (window.supabase && SUPABASE_ANON_KEY) {
+        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      } else {
+        alert('Supabase configuration error! Please check config.js.');
+      }
+
+      // DOM Elements
+      const authScreen = document.getElementById('authScreen');
+      const dashboardScreen = document.getElementById('dashboardScreen');
+      const loginForm = document.getElementById('loginForm');
+      const authStatus = document.getElementById('authStatus');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const projectForm = document.getElementById('projectForm');
+      const projectsList = document.getElementById('projectsList');
+      const editorStatus = document.getElementById('editorStatus');
+      const cancelEditBtn = document.getElementById('cancelEditBtn');
+      const editorTitle = document.getElementById('editorTitle');
+
+      let editItemId = null;
+
+      // Initial Auth state check
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) showDashboard();
+      });
+
+      // Authentication Handle
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        authStatus.className = 'form-status';
+        authStatus.style.display = 'none';
+
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) {
+          authStatus.textContent = error.message;
+          authStatus.className = 'form-status error';
+        } else {
+          showDashboard();
+        }
+      });
+
+      logoutBtn.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        hideDashboard();
+      });
+
+      function showDashboard() {
+        authScreen.classList.add('hidden');
+        dashboardScreen.classList.remove('hidden');
+        loadProjects();
+      }
+
+      function hideDashboard() {
+        authScreen.classList.remove('hidden');
+        dashboardScreen.classList.add('hidden');
+        loginForm.reset();
+      }
+
+      // Tab selector logic
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+          
+          btn.classList.add('active');
+          document.getElementById(btn.dataset.tab).classList.add('active');
+        });
+      });
+
+      // Load projects from database
+      async function loadProjects() {
+        projectsList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 40px 0;">Yuklanmoqda...</p>';
+        const { data, error } = await supabase
+          .from('portfolio_items')
+          .select('*')
+          .order('id', { ascending: false });
+
+        if (error) {
+          projectsList.innerHTML = `<p style="color: #ef9a9a; text-align: center; padding: 40px 0;">Loyiha yuklashda xato: ${error.message}</p>`;
+          return;
+        }
+
+        if (data.length === 0) {
+          projectsList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 40px 0;">Hozircha loyihalar yo\'q.</p>';
+          return;
+        }
+
+        projectsList.innerHTML = data.map(item => `
+          <div class="project-row">
+            <div class="project-info">
+              <img src="${item.image_url}" class="project-thumb" alt="">
+              <div>
+                <h4 style="font-size: 0.95rem; font-weight: 600;">${item.title_uz}</h4>
+                <p style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">${item.category}</p>
+              </div>
+            </div>
+            <div class="project-actions">
+              <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.75rem;" onclick="window.editProject(${item.id})">Tahrirlash</button>
+              <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.75rem; border-color: rgba(198,40,40,0.4); color: #ef9a9a;" onclick="window.deleteProject(${item.id})">O'chirish</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Add/Edit Project Form Submission
+      projectForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        editorStatus.className = 'form-status';
+        editorStatus.style.display = 'none';
+
+        const saveBtn = document.getElementById('saveProjectBtn');
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saqlanmoqda...';
+
+        const category = document.getElementById('projCategory').value;
+        const type = document.getElementById('projType').value;
+        const fileInput = document.getElementById('projFile');
+        let imageUrl = document.getElementById('projImageUrl').value.trim();
+
+        // Title
+        const title_uz = document.getElementById('projTitleUz').value.trim();
+        const title_ru = document.getElementById('projTitleRu').value.trim();
+        const title_en = document.getElementById('projTitleEn').value.trim();
+
+        // Tags
+        const tags_uz = document.getElementById('projTagsUz').value.trim();
+        const tags_ru = document.getElementById('projTagsRu').value.trim();
+        const tags_en = document.getElementById('projTagsEn').value.trim();
+
+        // Descriptions
+        const task_uz = document.getElementById('projTaskUz').value.trim();
+        const task_ru = document.getElementById('projTaskRu').value.trim();
+        const task_en = document.getElementById('projTaskEn').value.trim();
+
+        const solution_uz = document.getElementById('projSolutionUz').value.trim();
+        const solution_ru = document.getElementById('projSolutionRu').value.trim();
+        const solution_en = document.getElementById('projSolutionEn').value.trim();
+
+        const result_uz = document.getElementById('projResultUz').value.trim();
+        const result_ru = document.getElementById('projResultRu').value.trim();
+        const result_en = document.getElementById('projResultEn').value.trim();
+
+        try {
+          // Upload Image to Storage if file selected
+          if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Date.now()}.${fileExt}`;
+            const filePath = `projects/${fileName}`;
+
+            const { error: uploadError } = await supabase.storage
+              .from('portfolio-images')
+              .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            // Retrieve public URL
+            const { data: { publicUrl } } = supabase.storage
+              .from('portfolio-images')
+              .getPublicUrl(filePath);
+
+            imageUrl = publicUrl;
+          }
+
+          if (!imageUrl) {
+            throw new Error('Iltimos, rasm yuklang yoki URL kiriting.');
+          }
+
+          const rowData = {
+            category,
+            type,
+            image_url: imageUrl,
+            title_uz, title_ru, title_en,
+            tags_uz, tags_ru, tags_en,
+            task_uz, task_ru, task_en,
+            solution_uz, solution_ru, solution_en,
+            result_uz, result_ru, result_en
+          };
+
+          let responseError = null;
+
+          if (editItemId) {
+            // Update
+            const { error } = await supabase
+              .from('portfolio_items')
+              .update(rowData)
+              .eq('id', editItemId);
+            responseError = error;
+          } else {
+            // Insert
+            const { error } = await supabase
+              .from('portfolio_items')
+              .insert([rowData]);
+            responseError = error;
+          }
+
+          if (responseError) throw responseError;
+
+          editorStatus.textContent = 'Muvaffaqiyatli saqlandi!';
+          editorStatus.className = 'form-status success';
+          resetEditor();
+          loadProjects();
+
+        } catch (err) {
+          editorStatus.textContent = err.message || 'Xatolik yuz berdi.';
+          editorStatus.className = 'form-status error';
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Saqlash';
+        }
+      });
+
+      // Edit helper
+      window.editProject = async (id) => {
+        const { data, error } = await supabase
+          .from('portfolio_items')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (error) {
+          alert('Loyihani tahrirlashda xato: ' + error.message);
+          return;
+        }
+
+        editItemId = id;
+        editorTitle.textContent = 'Loyihani tahrirlash';
+        cancelEditBtn.classList.remove('hidden');
+
+        document.getElementById('projCategory').value = data.category;
+        document.getElementById('projType').value = data.type;
+        document.getElementById('projImageUrl').value = data.image_url;
+
+        // Populate translations
+        document.getElementById('projTitleUz').value = data.title_uz;
+        document.getElementById('projTitleRu').value = data.title_ru;
+        document.getElementById('projTitleEn').value = data.title_en;
+
+        document.getElementById('projTagsUz').value = data.tags_uz;
+        document.getElementById('projTagsRu').value = data.tags_ru;
+        document.getElementById('projTagsEn').value = data.tags_en;
+
+        document.getElementById('projTaskUz').value = data.task_uz;
+        document.getElementById('projTaskRu').value = data.task_ru;
+        document.getElementById('projTaskEn').value = data.task_en;
+
+        document.getElementById('projSolutionUz').value = data.solution_uz;
+        document.getElementById('projSolutionRu').value = data.solution_ru;
+        document.getElementById('projSolutionEn').value = data.solution_en;
+
+        document.getElementById('projResultUz').value = data.result_uz;
+        document.getElementById('projResultRu').value = data.result_ru;
+        document.getElementById('projResultEn').value = data.result_en;
+
+        // Scroll to editor
+        document.querySelector('.editor-section').scrollIntoView({ behavior: 'smooth' });
+      };
+
+      // Delete helper
+      window.deleteProject = async (id) => {
+        if (!confirm('Haqiqatdan ham bu loyihani o\'chirmoqchimisiz?')) return;
+
+        const { error } = await supabase
+          .from('portfolio_items')
+          .delete()
+          .eq('id', id);
+
+        if (error) {
+          alert('Loyihani o\'chirishda xato: ' + error.message);
+        } else {
+          if (editItemId === id) resetEditor();
+          loadProjects();
+        }
+      };
+
+      cancelEditBtn.addEventListener('click', resetEditor);
+
+      function resetEditor() {
+        editItemId = null;
+        projectForm.reset();
+        editorTitle.textContent = 'Yangi loyiha qo\'shish';
+        cancelEditBtn.classList.add('hidden');
+      }
+
+    })();
+  </script>
+</body>
+</html>

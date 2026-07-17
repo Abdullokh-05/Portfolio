@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initHeader();
   renderPortfolio();
+  loadDynamicPortfolio();
   renderTestimonials();
   renderSkills();
   renderServices();
@@ -242,7 +243,7 @@ function renderPortfolio() {
 
   // Re-attach click events
   grid.querySelectorAll('.portfolio-card').forEach(card => {
-    const open = () => openModal(parseInt(card.dataset.id));
+    const open = () => openModal(card.dataset.id);
     card.addEventListener('click', open);
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
   });
@@ -345,7 +346,7 @@ function initModal() {
 }
 
 function openModal(id) {
-  const item = portfolioItems.find(p => p.id === id);
+  const item = portfolioItems.find(p => String(p.id) === String(id));
   if (!item || !modalOverlay) return;
 
   const lang = currentLang;
@@ -910,4 +911,50 @@ function initReviewModal() {
     }
   });
 }
+
+// ============================================================
+// DYNAMIC PORTFOLIO LOADER (SUPABASE)
+// ============================================================
+async function loadDynamicPortfolio() {
+  if (typeof window.supabaseClient === 'undefined') return;
+
+  try {
+    const { data, error } = await window.supabaseClient
+      .from('portfolio_items')
+      .select('*')
+      .order('id', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching dynamic projects:', error);
+      return;
+    }
+
+    if (data && data.length > 0) {
+      // Filter out existing dynamic items from portfolioItems to prevent duplicates
+      const staticItems = portfolioItems.filter(item => typeof item.id !== 'string' || !item.id.startsWith('db-'));
+      
+      const dynamicItems = data.map(item => ({
+        id: `db-${item.id}`,
+        category: item.category,
+        image: item.image_url,
+        title: { uz: item.title_uz, ru: item.title_ru, en: item.title_en },
+        tags: { uz: item.tags_uz, ru: item.tags_ru, en: item.tags_en },
+        task: { uz: item.task_uz, ru: item.task_ru, en: item.task_en },
+        solution: { uz: item.solution_uz, ru: item.solution_ru, en: item.solution_en },
+        result: { uz: item.result_uz, ru: item.result_ru, en: item.result_en },
+        type: item.type
+      }));
+
+      // Combine dynamic items at the beginning with static items
+      portfolioItems.length = 0;
+      portfolioItems.push(...dynamicItems, ...staticItems);
+      
+      // Re-render the grid
+      renderPortfolio();
+    }
+  } catch (err) {
+    console.error('Failed to load portfolio items:', err);
+  }
+}
+
 
