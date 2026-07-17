@@ -1,0 +1,10 @@
+node_modules/
+nodejs/
+.env
+.env.local
+/generated/prisma
+.DS_Store
+*.log
+
+# Ignore active configuration keys
+js/config.js

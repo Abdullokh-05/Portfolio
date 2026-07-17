@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── SEO ────────────────────────────── -->
+  <title>Abdullokh Tashpulatov — Kreativ Dizayner & Visual Storyteller</title>
+  <meta name="description" content="Abdullokh Tashpulatov — grafik dizayner, videograf va video montaj ustasi. Brending, SMM, video kontent va AI Art yo'nalishlarida professional xizmatlar. tashpulatov.design" />
+  <meta name="keywords" content="grafik dizayner, videograf, video montaj, brending, SMM, AI Art, Tashkent, Toshkent, Abdullokh Tashpulatov, portfolio" />
+  <meta name="author" content="Abdullokh Tashpulatov" />
+  <link rel="canonical" href="https://tashpulatov.design" />
+
+  <!-- ── Open Graph ──────────────────────── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://tashpulatov.design" />
+  <meta property="og:title"       content="Abdullokh Tashpulatov — Creative Designer & Visual Storyteller" />
+  <meta property="og:description" content="Graphic designer, videographer and video editor creating impactful visual solutions for brands." />
+  <meta property="og:image"       content="https://tashpulatov.design/assets/images/og-image.jpg" />
+  <meta property="og:locale"      content="uz_UZ" />
+
+  <!-- ── Twitter Card ────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Abdullokh Tashpulatov — Creative Designer" />
+  <meta name="twitter:description" content="Graphic designer, videographer and video editor." />
+  <meta name="twitter:image"       content="https://tashpulatov.design/assets/images/og-image.jpg" />
+
+  <!-- ── Theme & Color ───────────────────── -->
+  <meta name="theme-color" content="#0f1a12" />
+
+  <!-- ── Preconnect ──────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- ── Google Fonts ────────────────────── -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ── Stylesheets ─────────────────────── -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- ── Structured Data ─────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Abdullokh Tashpulatov",
+    "jobTitle": "Graphic Designer & Videographer",
+    "url": "https://tashpulatov.design",
+    "sameAs": [
+      "https://t.me/tashpulatov_design",
+      "https://instagram.com/tashpulatov.design",
+      "https://www.behance.net/tashpulatov",
+      "https://www.linkedin.com/in/tashpulatov"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <!-- ============================================================
+       LOADING SCREEN
+       ============================================================ -->
+  <div id="loader" class="loader" role="status" aria-label="Loading">
+    <div class="loader__logo">AT<span>.</span></div>
+    <div class="loader__bar"></div>
+  </div>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="header" role="banner">
+    <div class="header__inner">
+
+      <!-- Logo -->
+      <a href="#hero" class="header__logo" aria-label="Abdullokh Tashpulatov — Home">
+        Abdullokh<span>.</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="nav" aria-label="Main navigation">
+        <ul class="nav__list" role="list">
+          <li><a class="nav__link" href="#about"        data-section="about"        data-i18n="nav.about">Men haqimda</a></li>
+          <li><a class="nav__link" href="#portfolio"    data-section="portfolio"    data-i18n="nav.portfolio">Portfolio</a></li>
+          <li><a class="nav__link" href="#skills"       data-section="skills"       data-i18n="nav.skills">Ko'nikmalar</a></li>
+          <li><a class="nav__link" href="#services"     data-section="services"     data-i18n="nav.services">Xizmatlar</a></li>
+          <li><a class="nav__link" href="#contact"      data-section="contact"      data-i18n="nav.contact">Bog'lanish</a></li>
+        </ul>
+      </nav>
+
+      <!-- Controls -->
+      <div class="header__controls">
+        <!-- Language switcher -->
+        <div class="lang-switcher" role="group" aria-label="Language selection">
+          <button class="lang-btn active" data-lang="uz" aria-pressed="true" aria-label="O'zbek tili">UZ</button>
+          <button class="lang-btn"        data-lang="ru" aria-pressed="false" aria-label="Russian">RU</button>
+          <button class="lang-btn"        data-lang="en" aria-pressed="false" aria-label="English">EN</button>
+        </div>
+
+        <!-- Theme toggle -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light theme">
+          <span class="icon-moon" aria-hidden="true">🌙</span>
+          <span class="icon-sun"  aria-hidden="true">☀️</span>
+        </button>
+
+        <!-- Mobile menu button -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" aria-hidden="true">
+    <a class="nav__link" href="#about"    data-i18n="nav.about">Men haqimda</a>
+    <a class="nav__link" href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
+    <a class="nav__link" href="#skills"   data-i18n="nav.skills">Ko'nikmalar</a>
+    <a class="nav__link" href="#services" data-i18n="nav.services">Xizmatlar</a>
+    <a class="nav__link" href="#contact"  data-i18n="nav.contact">Bog'lanish</a>
+    <div class="lang-switcher" role="group" aria-label="Language selection">
+      <button class="lang-btn active" data-lang="uz" aria-label="O'zbek">UZ</button>
+      <button class="lang-btn"        data-lang="ru" aria-label="Русский">RU</button>
+      <button class="lang-btn"        data-lang="en" aria-label="English">EN</button>
+    </div>
+  </nav>
+  <!-- Mobile Nav Backdrop -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+  <main id="main-content">
+
+    <!-- ──────────────────────────────────────────────────────────
+         HERO SECTION
+         ────────────────────────────────────────────────────────── -->
+    <section class="hero" id="hero" aria-labelledby="hero-title"><div class="editorial-card">
+
+      <!-- Background -->
+      <div class="hero__bg">
+        <img
+          class="hero__bg-image"
+          src="assets/images/hero_bg.jpg"
+          alt="Dark green foliage background — Abdullokh Tashpulatov portfolio"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+
+      <!-- Decorative frame -->
+      <div class="hero__frame" aria-hidden="true"></div>
+
+      <!-- Content -->
+      <div class="hero__content">
+        <p class="hero__label" data-i18n="hero.label">Abdullokh Tashpulatov tomonidan</p>
+
+        <h1 class="hero__title" id="hero-title" data-i18n="hero.title">
+          Kreativ Dizayner
+        </h1>
+
+        <p class="hero__subtitle" data-i18n="hero.subtitle">
+          &amp; Visual Storyteller
+        </p>
+
+        <p class="hero__description" data-i18n="hero.description">
+          Brendlar uchun kuchli vizual identifikatsiya, video kontent va innovatsion digital yechimlar yarataman.
+        </p>
+
+        <div class="hero__cta">
+          <a
+            href="#portfolio"
+            class="btn btn-primary"
+            id="hero-cta-portfolio"
+            data-i18n="hero.cta"
+          >
+            Ishlarimni ko'rish
+          </a>
+          <a
+            href="#contact"
+            class="btn btn-outline"
+            id="hero-cta-contact"
+            data-i18n="hero.cta2"
+          >
+            Bog'lanish
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="hero__scroll" aria-hidden="true">
+        <div class="hero__scroll-line"></div>
+        <span>scroll</span>
+      </div>
+
+    </div></section>
+
+    <!-- ──────────────────────────────────────────────────────────
+         ABOUT SECTION
+         ────────────────────────────────────────────────────────── -->
+    <section class="about section" id="about" aria-labelledby="about-title">
+      <div class="container"><div class="editorial-card">
+        <div class="about__grid">
+
+          <!-- Image side -->
+          <div class="about__image-wrap reveal-left">
+            <div class="about__image-frame" aria-hidden="true"></div>
+            <img
+              class="about__portrait"
+              src="assets/images/portrait.jpg"
+              alt="Abdullokh Tashpulatov — Grafik dizayner va videograf"
+              loading="lazy"
+              width="480"
+              height="640"
+            />
+            <!-- Stats card -->
+            <div class="about__stats" aria-label="Portfolio statistics">
+              <div class="about__stat-item">
+                <span class="about__stat-number" data-suffix="+">2</span>
+                <span class="about__stat-label" data-i18n="about.experience">yil tajriba</span>
+              </div>
+              <div class="about__stat-item">
+                <span class="about__stat-number" data-suffix="+">50</span>
+                <span class="about__stat-label" data-i18n="about.projects">loyiha</span>
+              </div>
+              <div class="about__stat-item">
+                <span class="about__stat-number" data-suffix="+">20</span>
+                <span class="about__stat-label" data-i18n="about.clients">mijoz</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content side -->
+          <div class="about__content reveal-right">
+            <p class="section-label" aria-hidden="true" data-i18n="about.sectionLabel">Men haqimda</p>
+            <h2 class="section-title" id="about-title" data-i18n="about.title">
+              Vizual kommunikatsiya orqali biznesni rivojlantiraman
+            </h2>
+
+            <div class="about__bio">
+              <p data-i18n="about.bio1">
+                Assalomu alaykum, men <strong>Abdullokh Tashpulatov</strong> — grafik dizayner, videograf va video montaj ustasiman. So'nggi 2+ yil davomida brendlar va kichik bizneslar uchun vizual yechimlar yaratib kelaman.
+              </p>
+              <p data-i18n="about.bio2">
+                Faoliyatim davomida brending, ijtimoiy tarmoqlar uchun dizaynlar, reklama materiallari, foto va video kontent, shuningdek, professional video montaj yo'nalishlarida ishladim.
+              </p>
+              <p data-i18n="about.bio3">
+                Har bir loyihada asosiy maqsadim nafaqat chiroyli ko'rinish yaratish, balki mijozning maqsadiga xizmat qiladigan samarali vizual kommunikatsiyani taqdim etishdir.
+              </p>
+            </div>
+
+            <div class="about__actions">
+              <a
+                href="assets/resume.pdf"
+                class="btn btn-primary"
+                id="resume-download-btn"
+                download
+                data-i18n="about.resumeBtn"
+                aria-label="Rezyume PDF yuklab olish"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Rezyume yuklab olish
+              </a>
+              <a href="#contact" class="btn btn-outline" id="about-contact-btn" data-i18n="nav.contact">Bog'lanish</a>
+            </div>
+          </div>
+
+        </div>
+      </div></div></section>
+
+    <!-- ──────────────────────────────────────────────────────────
+         PORTFOLIO SECTION
+         ────────────────────────────────────────────────────────── -->
+    <section class="portfolio section" id="portfolio" aria-labelledby="portfolio-title">
+      <div class="container">
+
+        <div class="portfolio__header">
+          <div>
+            <p class="section-label" data-i18n="portfolio.sectionLabel">Portfolio</p>
+            <h2 class="section-title" id="portfolio-title" data-i18n="portfolio.title">Tanlangan Ishlar</h2>
+          </div>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="portfolio__filters" role="group" aria-label="Portfolio filter">
+          <button class="filter-btn active" data-filter="all"     id="filter-all"      data-i18n="portfolio.filterAll">Hammasi</button>
+          <button class="filter-btn"        data-filter="branding" id="filter-branding" data-i18n="portfolio.filterBranding">Branding</button>
+          <button class="filter-btn"        data-filter="smm"     id="filter-smm"      data-i18n="portfolio.filterSmm">SMM &amp; Targeting</button>
+          <button class="filter-btn"        data-filter="ai"      id="filter-ai"       data-i18n="portfolio.filterAi">AI Art</button>
+          <button class="filter-btn"        data-filter="uiux"    id="filter-uiux"     data-i18n="portfolio.filterUiux">UI/UX</button>
+        </div>
+
+        <!-- Portfolio grid — rendered by JS -->
+        <div class="portfolio__grid" id="portfolioGrid" role="list" aria-label="Portfolio items"></div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────
+         TESTIMONIALS SECTION
+         ────────────────────────────────────────────────────────── -->
+    <section class="testimonials section" id="testimonials" aria-labelledby="testimonials-title">
+      <div class="container">
+        <p class="section-label" data-i18n="testimonials.sectionLabel">Mijozlar fikri</p>
+        <h2 class="section-title" id="testimonials-title" data-i18n="testimonials.title">Ular nima deydi</h2>
+
+        <div class="testimonials__slider" role="region" aria-label="Testimonials slider" aria-live="polite">
+          <div class="testimonials__track" id="testimonialsTrack"></div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="testimonials__nav" role="group" aria-label="Slider navigation">
+          <button class="slider-btn" id="sliderPrev" aria-label="Previous testimonial">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="slider-dots" id="sliderDots" role="group" aria-label="Testimonial navigation dots"></div>
+          <button class="slider-btn" id="sliderNext" aria-label="Next testimonial">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <!-- Leave a Review Button -->
+        <div style="text-align: center; margin-top: 32px;" class="reveal">
+          <button class="btn btn-outline" id="leaveReviewBtn" data-i18n="testimonials.leaveReview">
+            Fikr qoldirish
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────
+         SKILLS SECTION
+         ────────────────────────────────────────────────────────── -->
+    <section class="skills section" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <p class="section-label" data-i18n="skills.sectionLabel">Ko'nikmalar</p>
+        <h2 class="section-title" id="skills-title" data-i18n="skills.title">Dasturlar va Texnologiyalar</h2>
+
+        <!-- Skills grid — rendered by JS -->
+        <div class="skills__grid" id="skillsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────
+         SERVICES SECTION
+         ────────────────────────────────────────────────────────── -->
+    <section class="services section" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <p class="section-label" data-i18n="services.sectionLabel">Xizmatlar</p>
+        <h2 class="section-title" id="services-title" data-i18n="services.title">Nima qila olaman</h2>
+
+        <!-- Services grid — rendered by JS -->
+        <div class="services__grid" id="servicesGrid"></div>
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────────────────────────────
+         CONTACT SECTION
+         ────────────────────────────────────────────────────────── -->
+    <section class="contact section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact__grid">
+
+          <!-- Info side -->
+          <div class="contact__info reveal-left">
+            <p class="section-label" data-i18n="contact.sectionLabel">Bog'lanish</p>
+            <h2 class="section-title" id="contact-title" data-i18n="contact.title">
+              Loyihangizni birga amalga oshiramiz
+            </h2>
+            <p class="contact__subtitle" data-i18n="contact.subtitle">
+              Yangi loyiha, hamkorlik yoki savol bo'lsa — yozing, tez javob beraman.
+            </p>
+
+            <!-- Social links -->
+            <nav class="contact__socials" aria-label="Social media links">
+              <a class="social-link" href="https://t.me/tashpulatov_design" id="social-telegram" target="_blank" rel="noopener noreferrer" aria-label="Telegram — @tashpulatov_design">
+                <span class="social-link__icon" aria-hidden="true">✈️</span>
+                <span class="social-link__name">Telegram</span>
+                <span style="margin-left:auto; font-size:0.72rem; color:var(--text-muted);">@tashpulatov_design</span>
+              </a>
+              <a class="social-link" href="https://instagram.com/tashpulatov.design" id="social-instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram — @tashpulatov.design">
+                <span class="social-link__icon" aria-hidden="true">📸</span>
+                <span class="social-link__name">Instagram</span>
+                <span style="margin-left:auto; font-size:0.72rem; color:var(--text-muted);">@tashpulatov.design</span>
+              </a>
+              <a class="social-link" href="https://www.behance.net/tashpulatov" id="social-behance" target="_blank" rel="noopener noreferrer" aria-label="Behance portfolio">
+                <span class="social-link__icon" aria-hidden="true">🎨</span>
+                <span class="social-link__name">Behance</span>
+                <span style="margin-left:auto; font-size:0.72rem; color:var(--text-muted);">tashpulatov</span>
+              </a>
+              <a class="social-link" href="https://www.linkedin.com/in/tashpulatov" id="social-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                <span class="social-link__icon" aria-hidden="true">💼</span>
+                <span class="social-link__name">LinkedIn</span>
+                <span style="margin-left:auto; font-size:0.72rem; color:var(--text-muted);">Abdullokh Tashpulatov</span>
+              </a>
+              <a class="social-link" href="https://github.com/tashpulatov" id="social-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                <span class="social-link__icon" aria-hidden="true">💻</span>
+                <span class="social-link__name">GitHub</span>
+                <span style="margin-left:auto; font-size:0.72rem; color:var(--text-muted);">tashpulatov</span>
+              </a>
+              <a class="social-link" href="#" id="social-ai-chat" aria-label="AI Yordamchi bilan suhbatlashish">
+                <span class="social-link__icon" aria-hidden="true">🤖</span>
+                <span class="social-link__name" data-i18n="contact.aiChatBtn">AI Chatbot</span>
+                <span style="margin-left:auto; font-size:0.72rem; color:var(--accent-gold);" data-i18n="contact.aiChatStatus">Online</span>
+              </a>
+            </nav>
+          </div>
+
+          <!-- Form side -->
+          <div class="contact__form-wrap reveal-right">
+            <!--
+              Formspree: Replace YOUR_FORM_ID with your actual Formspree form ID.
+              Sign up free at https://formspree.io and create a form to get your ID.
+            -->
+            <form
+              class="contact-form"
+              id="contactForm"
+              action="https://formspree.io/f/YOUR_FORM_ID"
+              method="POST"
+              novalidate
+              aria-label="Contact form"
+            >
+
+              <div class="form-group">
+                <label class="form-label" for="formName" data-i18n="about.sectionLabel">Ism</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="formName"
+                  name="name"
+                  autocomplete="name"
+                  required
+                  data-i18n-placeholder="contact.namePlaceholder"
+                  placeholder="Ismingiz"
+                  aria-required="true"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="formContact">Telegram / Email</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="formContact"
+                  name="contact"
+                  autocomplete="email"
+                  required
+                  placeholder="Telegram yoki Email"
+                  aria-required="true"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="formMessage" data-i18n="about.sectionLabel">Xabar</label>
+                <textarea
+                  class="form-textarea"
+                  id="formMessage"
+                  name="message"
+                  rows="5"
+                  required
+                  placeholder="Loyiha haqida qisqacha aytib bering..."
+                  aria-required="true"
+                ></textarea>
+              </div>
+
+              <div id="formStatus" class="form-status" role="alert" aria-live="polite"></div>
+
+              <button
+                class="btn btn-primary form-submit-btn"
+                type="submit"
+                id="contactSubmitBtn"
+                data-i18n="contact.sendBtn"
+                style="width:100%; justify-content:center;"
+              >
+                Xabar yuborish
+              </button>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <a href="#hero" class="footer__logo" aria-label="Back to top — Abdullokh Tashpulatov">
+          Abdullokh<span>.</span>
+        </a>
+
+        <p class="footer__copy">
+          &copy; <span id="footerYear"></span> Abdullokh Tashpulatov.
+          <span data-i18n="footer.rights">Barcha huquqlar himoyalangan</span>.
+        </p>
+
+        <nav class="footer__links" aria-label="Footer navigation">
+          <a class="footer__link" href="#about"     data-i18n="nav.about">Men haqimda</a>
+          <a class="footer__link" href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
+          <a class="footer__link" href="#contact"   data-i18n="nav.contact">Bog'lanish</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       MODAL LIGHTBOX
+       ============================================================ -->
+  <div
+    class="modal-overlay"
+    id="modalOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div class="modal" id="modal">
+      <button class="modal__close" id="modalClose" aria-label="Close modal">✕</button>
+
+      <img
+        class="modal__image"
+        id="modalImage"
+        src=""
+        alt=""
+        loading="lazy"
+      />
+
+      <div class="modal__body">
+        <p class="modal__tag" id="modalTag"></p>
+        <h3 class="modal__title" id="modalTitle"></h3>
+
+        <div class="modal__case-study">
+          <div class="case-item">
+            <p class="case-item__label" id="modalTaskLabel">Vazifa</p>
+            <p class="case-item__text" id="modalTask"></p>
+          </div>
+          <div class="case-item">
+            <p class="case-item__label" id="modalSolutionLabel">Yechim</p>
+            <p class="case-item__text" id="modalSolution"></p>
+          </div>
+          <div class="case-item">
+            <p class="case-item__label" id="modalResultLabel">Natija</p>
+            <p class="case-item__text" id="modalResult"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       REVIEW MODAL
+       ============================================================ -->
+  <div
+    class="modal-overlay"
+    id="reviewModalOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="reviewModalTitle"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div class="modal" id="reviewModal" style="max-width: 550px;">
+      <button class="modal__close" id="reviewModalClose" aria-label="Close modal">✕</button>
+
+      <div class="modal__body">
+        <h3 class="modal__title" id="reviewModalTitle" data-i18n="testimonials.reviewFormTitle" style="margin-bottom: 8px;">Sizning fikringiz</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px;" data-i18n="testimonials.reviewFormSubtitle">Hamkorligimiz haqida fikringizni bildiring...</p>
+
+        <form class="contact-form" id="reviewForm" novalidate aria-label="Review form">
+          <div class="form-group">
+            <label class="form-label" data-i18n="testimonials.ratingLabel">Baholang</label>
+            <div class="star-rating" style="display: flex; gap: 8px; font-size: 1.8rem; color: var(--text-muted); cursor: pointer;">
+              <span data-value="1" class="star-btn">☆</span>
+              <span data-value="2" class="star-btn">☆</span>
+              <span data-value="3" class="star-btn">☆</span>
+              <span data-value="4" class="star-btn">☆</span>
+              <span data-value="5" class="star-btn">☆</span>
+            </div>
+            <input type="hidden" id="reviewRating" name="rating" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reviewName" data-i18n="about.sectionLabel">Ism</label>
+            <input
+              class="form-input"
+              type="text"
+              id="reviewName"
+              name="name"
+              required
+              data-i18n-placeholder="testimonials.reviewNamePlaceholder"
+              placeholder="Ismingiz"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reviewRole" data-i18n="testimonials.reviewRolePlaceholder">Kompaniya / Lavozim</label>
+            <input
+              class="form-input"
+              type="text"
+              id="reviewRole"
+              name="role"
+              required
+              data-i18n-placeholder="testimonials.reviewRolePlaceholder"
+              placeholder="Kompaniya / Lavozim"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reviewText" data-i18n="about.sectionLabel">Xabar</label>
+            <textarea
+              class="form-textarea"
+              id="reviewText"
+              name="text"
+              rows="4"
+              required
+              data-i18n-placeholder="testimonials.reviewTextPlaceholder"
+              placeholder="Hamkorligimiz haqida yozing..."
+            ></textarea>
+          </div>
+
+          <div id="reviewFormStatus" class="form-status" role="alert" aria-live="polite"></div>
+
+          <div style="display: flex; gap: 12px; margin-top: 12px;">
+            <button
+              class="btn btn-outline"
+              type="button"
+              id="reviewCancelBtn"
+              data-i18n="testimonials.cancelBtn"
+              style="flex: 1; justify-content: center;"
+            >
+              Bekor qilish
+            </button>
+            <button
+              class="btn btn-primary"
+              type="submit"
+              id="reviewSubmitBtn"
+              data-i18n="testimonials.reviewSubmitBtn"
+              style="flex: 2; justify-content: center;"
+            >
+              Yuborish
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FLOATING AI CHAT WIDGET
+       ============================================================ -->
+  <!-- Floating Button -->
+  <button id="aiWidgetToggle" class="ai-widget-toggle" aria-label="AI Yordamchi bilan suhbatlashish" title="AI Chat">
+    <span class="ai-widget-toggle__icon">💬</span>
+    <span class="ai-widget-toggle__pulse"></span>
+  </button>
+
+  <!-- Chat Window -->
+  <div id="aiChatWindow" class="ai-chat-window" aria-hidden="true">
+    <div class="ai-chat-window__header">
+      <div class="ai-chat-window__header-info">
+        <span class="ai-chat-window__avatar">🤖</span>
+        <div>
+          <h4 class="ai-chat-window__title">Abdullokh's AI</h4>
+          <span class="ai-chat-window__status" data-i18n="contact.aiChatStatus">Online</span>
+        </div>
+      </div>
+      <button id="aiChatWindowClose" class="ai-chat-window__close" aria-label="Chatni yopish">✕</button>
+    </div>
+
+    <!-- Messages Container -->
+    <div id="aiChatMessages" class="ai-chat-window__messages">
+      <div class="ai-chat-msg ai-chat-msg--bot">
+        <p class="ai-chat-msg__text" id="aiWelcomeMsg">
+          Assalomu alaykum! Men Abdullokhning AI yordamchisiman. Sizga qanday xizmatlar (branding, SMM, video, UI/UX) kerakligi haqida so'rashingiz mumkin.
+        </p>
+      </div>
+    </div>
+
+    <!-- Input Bar -->
+    <form id="aiChatForm" class="ai-chat-window__input-bar" novalidate>
+      <input
+        type="text"
+        id="aiChatInput"
+        class="ai-chat-window__input"
+        required
+        placeholder="Xabaringizni yozing..."
+        autocomplete="off"
+      />
+      <button type="submit" class="ai-chat-window__send" aria-label="Yuborish">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <!-- GSAP + ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- App data (must come before main.js) -->
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/portfolio-data.js"></script>
+
+  <!-- Supabase client initialization -->
+  <script>
+    (function() {
+      var SUPABASE_URL = 'https://ypjxvtdtpwjcdnkofhsh.supabase.co';
+      var SUPABASE_ANON_KEY = typeof SUPABASE_CONFIG !== 'undefined'
+        ? SUPABASE_CONFIG.ANON_KEY
+        : (window.__SUPABASE_ANON_KEY || '');
+      if (window.supabase && SUPABASE_ANON_KEY) {
+        window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    })();
+  </script>
+
+  <!-- Main app logic -->
+  <script src="js/main.js"></script>
+  <script src="js/ai-chat.js"></script>
+
+  <!-- Inline: set footer year -->
+  <script>
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
