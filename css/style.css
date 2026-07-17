@@ -1945,3 +1945,95 @@ ul, ol {
   transform: none;
 }
 
+/* ============================================================
+   DYNAMIC PORTFOLIO LAYOUT BLOCKS
+   ============================================================ */
+.modal__blocks {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.block-heading {
+  font-family: var(--font-heading);
+  font-size: 1.65rem;
+  font-style: italic;
+  color: var(--accent-gold);
+  margin-top: 16px;
+  margin-bottom: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.block-text {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  opacity: 0.9;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+.block-media-grid {
+  display: grid;
+  gap: 20px;
+  margin: 12px 0;
+  width: 100%;
+}
+
+.block-media-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.block-media-item img,
+.block-media-item video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.2);
+  /* Preserve original aspect ratio without cropping */
+  object-fit: contain;
+}
+
+.block-media-caption {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Helper to handle grids dynamically */
+.grid-cols-1 { grid-template-columns: 1fr; }
+.grid-cols-2 { grid-template-columns: 1fr 1fr; }
+.grid-cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+@media (max-width: 768px) {
+  .grid-cols-2, .grid-cols-3 {
+    grid-template-columns: 1fr; /* Stack columns on tablet/mobile */
+  }
+}
+
+/* ============================================================
+   ADMIN PANEL UTILITIES
+   ============================================================ */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+

@@ -351,20 +351,73 @@ function openModal(id) {
 
   const lang = currentLang;
 
-  document.getElementById('modalTag').textContent      = item.tags[lang];
-  document.getElementById('modalTitle').textContent    = item.title[lang];
-  document.getElementById('modalTask').textContent     = item.task[lang];
-  document.getElementById('modalSolution').textContent = item.solution[lang];
-  document.getElementById('modalResult').textContent   = item.result[lang];
+  document.getElementById('modalTag').textContent      = item.tags[lang] || '';
+  document.getElementById('modalTitle').textContent    = item.title[lang] || '';
 
   const img = document.getElementById('modalImage');
   img.src = item.image;
-  img.alt = item.title[lang];
+  img.alt = item.title[lang] || '';
 
-  // Labels
-  document.getElementById('modalTaskLabel').textContent     = lang === 'uz' ? 'Vazifa'   : lang === 'ru' ? 'Задача'    : 'Task';
-  document.getElementById('modalSolutionLabel').textContent = lang === 'uz' ? 'Yechim'   : lang === 'ru' ? 'Решение'   : 'Solution';
-  document.getElementById('modalResultLabel').textContent   = lang === 'uz' ? 'Natija'   : lang === 'ru' ? 'Результат' : 'Result';
+  const caseStudyContainer = document.querySelector('.modal__case-study');
+  const blocksContainer = document.getElementById('modalBlocks');
+
+  if (item.layout_blocks && item.layout_blocks.length > 0) {
+    // Hide classic layout, show blocks container
+    if (caseStudyContainer) caseStudyContainer.style.display = 'none';
+    if (blocksContainer) {
+      blocksContainer.style.display = 'flex';
+      blocksContainer.innerHTML = item.layout_blocks.map(block => {
+        if (block.type === 'heading') {
+          return `<h4 class="block-heading">${block.content[lang] || ''}</h4>`;
+        }
+        if (block.type === 'text') {
+          return `<p class="block-text">${block.content[lang] || ''}</p>`;
+        }
+        if (block.type === 'media') {
+          const mediaItems = block.media || [];
+          const colsClass = mediaItems.length === 1 ? 'grid-cols-1' : mediaItems.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
+          
+          const gridHtml = mediaItems.map(m => {
+            const captionHtml = m.caption && m.caption[lang] ? `<p class="block-media-caption">${m.caption[lang]}</p>` : '';
+            if (m.type === 'video') {
+              return `
+                <div class="block-media-item">
+                  <video controls src="${m.url}"></video>
+                  ${captionHtml}
+                </div>
+              `;
+            } else {
+              return `
+                <div class="block-media-item">
+                  <img src="${m.url}" alt="" loading="lazy" />
+                  ${captionHtml}
+                </div>
+              `;
+            }
+          }).join('');
+          
+          return `<div class="block-media-grid ${colsClass}">${gridHtml}</div>`;
+        }
+        return '';
+      }).join('');
+    }
+  } else {
+    // Fallback to classic layout
+    if (caseStudyContainer) caseStudyContainer.style.display = 'block';
+    if (blocksContainer) {
+      blocksContainer.style.display = 'none';
+      blocksContainer.innerHTML = '';
+    }
+
+    document.getElementById('modalTask').textContent     = item.task ? item.task[lang] : '';
+    document.getElementById('modalSolution').textContent = item.solution ? item.solution[lang] : '';
+    document.getElementById('modalResult').textContent   = item.result ? item.result[lang] : '';
+
+    // Labels
+    document.getElementById('modalTaskLabel').textContent     = lang === 'uz' ? 'Vazifa'   : lang === 'ru' ? 'Задача'    : 'Task';
+    document.getElementById('modalSolutionLabel').textContent = lang === 'uz' ? 'Yechim'   : lang === 'ru' ? 'Решение'   : 'Solution';
+    document.getElementById('modalResultLabel').textContent   = lang === 'uz' ? 'Natija'   : lang === 'ru' ? 'Результат' : 'Result';
+  }
 
   modalOverlay.classList.add('active');
   modalOverlay.setAttribute('aria-hidden', 'false');
@@ -942,7 +995,8 @@ async function loadDynamicPortfolio() {
         task: { uz: item.task_uz, ru: item.task_ru, en: item.task_en },
         solution: { uz: item.solution_uz, ru: item.solution_ru, en: item.solution_en },
         result: { uz: item.result_uz, ru: item.result_ru, en: item.result_en },
-        type: item.type
+        type: item.type,
+        layout_blocks: item.layout_blocks || []
       }));
 
       // Combine dynamic items at the beginning with static items

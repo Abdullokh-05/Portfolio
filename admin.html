@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Panel — Abdullokh Tashpulatov Portfolio</title>
+  <title>Admin Panel — Portfolio Case Study Builder</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/style.css">
   
   <style>
-    /* Admin custom styles overriding style.css defaults */
+    /* Premium Admin Page Styling */
     body {
       background: var(--bg-primary);
       color: var(--text-primary);
@@ -24,7 +24,7 @@
     .admin-container {
       flex: 1;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 80px auto;
       padding: 0 24px;
     }
@@ -50,17 +50,17 @@
     
     .dashboard-title {
       font-family: var(--font-heading);
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-style: italic;
     }
     
     .admin-grid {
       display: grid;
-      grid-template-columns: 1fr 1.5fr;
+      grid-template-columns: 1.2fr 1.8fr;
       gap: 32px;
     }
     
-    @media (max-width: 992px) {
+    @media (max-width: 1100px) {
       .admin-grid {
         grid-template-columns: 1fr;
       }
@@ -73,13 +73,6 @@
       padding: 32px;
     }
     
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    
     .form-group {
       margin-bottom: 20px;
     }
@@ -89,40 +82,85 @@
       margin-bottom: 8px;
       font-size: 0.85rem;
       color: var(--text-muted);
+      font-weight: 500;
     }
     
-    .tabs-nav {
+    /* Premium Block Builder UI */
+    .blocks-container {
       display: flex;
-      gap: 8px;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    
+    .block-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+    }
+    
+    .block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 16px;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       padding-bottom: 8px;
     }
     
-    .tab-btn {
+    .block-badge {
+      background: rgba(197, 160, 89, 0.15);
+      color: var(--accent-gold);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .block-controls {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .block-control-btn {
       background: none;
       border: none;
       color: var(--text-muted);
-      padding: 6px 12px;
       cursor: pointer;
-      font-size: 0.85rem;
-      border-radius: 4px;
-      transition: all 0.3s;
+      font-size: 0.9rem;
+      padding: 4px;
+      transition: color 0.3s;
     }
     
-    .tab-btn.active {
-      background: rgba(197, 160, 89, 0.15);
-      color: var(--accent-gold);
+    .block-control-btn:hover {
+      color: var(--text-primary);
     }
     
-    .tab-content {
-      display: none;
+    .block-control-btn.delete:hover {
+      color: #ef9a9a;
     }
     
-    .tab-content.active {
-      display: block;
+    /* Media Grid Builder inside Block */
+    .media-items-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 12px;
     }
     
+    .media-item-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px dashed var(--border-color);
+      border-radius: 6px;
+      padding: 16px;
+      position: relative;
+    }
+    
+    /* Project row on list */
     .project-row {
       display: flex;
       align-items: center;
@@ -140,22 +178,17 @@
     
     .project-thumb {
       width: 60px;
-      height: 40px;
+      height: 45px;
       object-fit: cover;
       border-radius: 4px;
       border: 1px solid var(--border-color);
-    }
-    
-    .project-actions {
-      display: flex;
-      gap: 8px;
     }
     
     .hidden {
       display: none !important;
     }
     
-    /* Input adjustments for premium look */
+    /* Custom inputs */
     .form-input, .form-textarea, .form-select {
       width: 100%;
       background: rgba(255, 255, 255, 0.03);
@@ -165,26 +198,28 @@
       border-radius: 6px;
       outline: none;
       transition: border-color 0.3s;
+      font-size: 0.9rem;
     }
     
     .form-input:focus, .form-textarea:focus, .form-select:focus {
       border-color: var(--accent-gold);
     }
     
-    .form-select {
-      cursor: pointer;
+    .builder-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
     }
   </style>
 </head>
 <body>
 
-  <!-- ADMIN WORKSPACE -->
   <div class="admin-container">
     
     <!-- AUTHENTICATION FORM -->
     <div id="authScreen" class="auth-card">
       <h2 style="font-family: var(--font-heading); font-style: italic; margin-bottom: 8px; text-align: center;">Tizimga kirish</h2>
-      <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin-bottom: 24px;">Faqat admin uchun kirish ruxsati</p>
+      <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin-bottom: 24px;">Loyiha tahrirlovchi admin panel</p>
       
       <form id="loginForm">
         <div class="form-group">
@@ -206,21 +241,22 @@
     <div id="dashboardScreen" class="hidden">
       <div class="dashboard-header">
         <div>
-          <h1 class="dashboard-title">Boshqaruv Paneli</h1>
-          <p style="color: var(--text-muted); font-size: 0.85rem;">Portfolio loyihalarini tahrirlash va yuklash</p>
+          <h1 class="dashboard-title">Portfolioni boshqarish</h1>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Loyiha sarlavhasi va cheksiz moslashuvchan bloklar (Matn, Rasmlar va Videolar)</p>
         </div>
         <button id="logoutBtn" class="btn btn-outline">Chiqish</button>
       </div>
 
       <div class="admin-grid">
-        <!-- Project Editor -->
-        <div class="editor-section">
-          <h2 style="font-size: 1.25rem; margin-bottom: 20px;" id="editorTitle">Yangi loyiha qo'shish</h2>
-          
-          <form id="projectForm">
-            <input type="hidden" id="projectId">
-            
-            <div class="form-row">
+        
+        <!-- Left Side: Cover Info + Existing Projects -->
+        <div style="display: flex; flex-direction: column; gap: 32px;">
+          <!-- Basic Cover Info -->
+          <div class="editor-section">
+            <h2 style="font-size: 1.2rem; margin-bottom: 20px;" id="editorTitle">Loyiha muqovasi (Cover)</h2>
+            <form id="coverForm">
+              <input type="hidden" id="projectId">
+              
               <div class="form-group">
                 <label for="projCategory">Kategoriya</label>
                 <select id="projCategory" class="form-select" required>
@@ -231,141 +267,94 @@
                   <option value="uiux">UI/UX Dizayn</option>
                 </select>
               </div>
+
               <div class="form-group">
-                <label for="projType">Media turi</label>
-                <select id="projType" class="form-select" required>
-                  <option value="image">Rasm</option>
-                  <option value="video">Video</option>
-                </select>
+                <label>Muqova rasmi (Cover Image)</label>
+                <input type="file" id="coverFile" class="form-input" accept="image/*" style="margin-bottom: 8px;">
+                <input type="text" id="coverImageUrl" class="form-input" placeholder="Rasm URL havolasi...">
               </div>
-            </div>
 
-            <!-- Media Upload / URL -->
-            <div class="form-group">
-              <label>Loyiha rasmi</label>
-              <div style="display: flex; gap: 8px;">
-                <input type="file" id="projFile" class="form-input" style="flex: 1;" accept="image/*">
-                <span style="align-self: center; color: var(--text-muted); font-size: 0.85rem;">yoki</span>
-                <input type="text" id="projImageUrl" class="form-input" style="flex: 1.5;" placeholder="Rasm URL manzili...">
-              </div>
-              <small style="color: var(--text-muted); display: block; margin-top: 4px;">Rasm yuklang yoki to'g'ridan-to'g'ri havolani joylashtiring</small>
-            </div>
-
-            <!-- Language tabs -->
-            <div class="tabs-nav">
-              <button type="button" class="tab-btn active" data-tab="langUz">Uzbekcha</button>
-              <button type="button" class="tab-btn" data-tab="langRu">Русский</button>
-              <button type="button" class="tab-btn" data-tab="langEn">English</button>
-            </div>
-
-            <!-- UZ TAB -->
-            <div id="langUz" class="tab-content active">
+              <!-- Multi-lang Titles -->
               <div class="form-group">
                 <label for="projTitleUz">Sarlavha (UZ)</label>
                 <input type="text" id="projTitleUz" class="form-input" placeholder="Loyiha nomi" required>
               </div>
               <div class="form-group">
-                <label for="projTagsUz">Teglar (UZ)</label>
-                <input type="text" id="projTagsUz" class="form-input" placeholder="Dizayn · Brending" required>
-              </div>
-              <div class="form-group">
-                <label for="projTaskUz">Vazifa (UZ)</label>
-                <textarea id="projTaskUz" class="form-textarea" rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="projSolutionUz">Yechim (UZ)</label>
-                <textarea id="projSolutionUz" class="form-textarea" rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="projResultUz">Natija (UZ)</label>
-                <textarea id="projResultUz" class="form-textarea" rows="3" required></textarea>
-              </div>
-            </div>
-
-            <!-- RU TAB -->
-            <div id="langRu" class="tab-content">
-              <div class="form-group">
                 <label for="projTitleRu">Название (RU)</label>
                 <input type="text" id="projTitleRu" class="form-input" placeholder="Название проекта" required>
+              </div>
+              <div class="form-group">
+                <label for="projTitleEn">Title (EN)</label>
+                <input type="text" id="projTitleEn" class="form-input" placeholder="Project title" required>
+              </div>
+
+              <!-- Multi-lang Tags -->
+              <div class="form-group">
+                <label for="projTagsUz">Teglar (UZ)</label>
+                <input type="text" id="projTagsUz" class="form-input" placeholder="Dizayn · Brending" required>
               </div>
               <div class="form-group">
                 <label for="projTagsRu">Теги (RU)</label>
                 <input type="text" id="projTagsRu" class="form-input" placeholder="Дизайн · Брендинг" required>
               </div>
               <div class="form-group">
-                <label for="projTaskRu">Задача (RU)</label>
-                <textarea id="projTaskRu" class="form-textarea" rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="projSolutionRu">Решение (RU)</label>
-                <textarea id="projSolutionRu" class="form-textarea" rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="projResultRu">Результат (RU)</label>
-                <textarea id="projResultRu" class="form-textarea" rows="3" required></textarea>
-              </div>
-            </div>
-
-            <!-- EN TAB -->
-            <div id="langEn" class="tab-content">
-              <div class="form-group">
-                <label for="projTitleEn">Title (EN)</label>
-                <input type="text" id="projTitleEn" class="form-input" placeholder="Project title" required>
-              </div>
-              <div class="form-group">
                 <label for="projTagsEn">Tags (EN)</label>
                 <input type="text" id="projTagsEn" class="form-input" placeholder="Design · Branding" required>
               </div>
-              <div class="form-group">
-                <label for="projTaskEn">Task (EN)</label>
-                <textarea id="projTaskEn" class="form-textarea" rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="projSolutionEn">Solution (EN)</label>
-                <textarea id="projSolutionEn" class="form-textarea" rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="projResultEn">Result (EN)</label>
-                <textarea id="projResultEn" class="form-textarea" rows="3" required></textarea>
-              </div>
+            </form>
+          </div>
+
+          <!-- Existing List -->
+          <div class="list-section">
+            <h2 style="font-size: 1.2rem; margin-bottom: 20px;">Mavjud loyihalar (Supabase)</h2>
+            <div id="projectsList" style="display: flex; flex-direction: column;">
+              <p style="color: var(--text-muted); text-align: center; padding: 40px 0;">Yuklanmoqda...</p>
             </div>
-
-            <div id="editorStatus" class="form-status" style="margin-bottom: 16px;"></div>
-
-            <div style="display: flex; gap: 12px; margin-top: 24px;">
-              <button type="button" id="cancelEditBtn" class="btn btn-outline hidden" style="flex: 1; justify-content: center;">Bekor qilish</button>
-              <button type="submit" id="saveProjectBtn" class="btn btn-primary" style="flex: 2; justify-content: center;">Saqlash</button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Project List -->
-        <div class="list-section">
-          <h2 style="font-size: 1.25rem; margin-bottom: 20px;">Mavjud loyihalar (Supabase)</h2>
-          <div id="projectsList" style="display: flex; flex-direction: column;">
-            <p style="color: var(--text-muted); text-align: center; padding: 40px 0;">Yuklanmoqda...</p>
           </div>
         </div>
+
+        <!-- Right Side: Block Layout Builder -->
+        <div class="editor-section">
+          <h2 style="font-size: 1.2rem; margin-bottom: 8px;">Case Study bloklari qo'shish</h2>
+          <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 24px;">Loyiha sahifasiga istalgancha matn va media elementlarini joylashtiring. Rasmlar va videolar asl aspect ratio nisbatini saqlab qoladi.</p>
+
+          <div id="blocksContainer" class="blocks-container">
+            <!-- Dynamic blocks load here -->
+          </div>
+
+          <div class="builder-buttons">
+            <button type="button" class="btn btn-outline" style="flex: 1;" onclick="window.addHeadingBlock()">➕ Sarlavha bloki</button>
+            <button type="button" class="btn btn-outline" style="flex: 1;" onclick="window.addTextBlock()">➕ Matn bloki</button>
+            <button type="button" class="btn btn-outline" style="flex: 1.2;" onclick="window.addMediaBlock()">➕ Rasm/Video to'plami</button>
+          </div>
+
+          <div id="editorStatus" class="form-status" style="margin-top: 24px; margin-bottom: 16px;"></div>
+
+          <div style="display: flex; gap: 12px; margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+            <button type="button" id="cancelEditBtn" class="btn btn-outline hidden" style="flex: 1; justify-content: center;">Bekor qilish</button>
+            <button type="button" id="saveProjectBtn" class="btn btn-primary" style="flex: 2; justify-content: center;">Loyihani saqlash</button>
+          </div>
+        </div>
+
       </div>
     </div>
     
   </div>
 
-  <!-- Supabase UMD Library -->
+  <!-- Supabase library -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  
   <script src="js/config.js"></script>
   
   <script>
     (function() {
-      // 1. Initialize Supabase
+      // Initialize Supabase
       const SUPABASE_URL = 'https://ypjxvtdtpwjcdnkofhsh.supabase.co';
       const SUPABASE_ANON_KEY = typeof SUPABASE_CONFIG !== 'undefined' ? SUPABASE_CONFIG.ANON_KEY : '';
       let supabase = null;
       if (window.supabase && SUPABASE_ANON_KEY) {
         supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       } else {
-        alert('Supabase configuration error! Please check config.js.');
+        alert('Supabase client error! check config.js.');
       }
 
       // DOM Elements
@@ -374,20 +363,21 @@
       const loginForm = document.getElementById('loginForm');
       const authStatus = document.getElementById('authStatus');
       const logoutBtn = document.getElementById('logoutBtn');
-      const projectForm = document.getElementById('projectForm');
       const projectsList = document.getElementById('projectsList');
+      const blocksContainer = document.getElementById('blocksContainer');
       const editorStatus = document.getElementById('editorStatus');
       const cancelEditBtn = document.getElementById('cancelEditBtn');
+      const saveProjectBtn = document.getElementById('saveProjectBtn');
       const editorTitle = document.getElementById('editorTitle');
 
       let editItemId = null;
+      let blocks = []; // Global blocks list
 
-      // Initial Auth state check
+      // Auth state check
       supabase.auth.getSession().then(({ data: { session } }) => {
         if (session) showDashboard();
       });
 
-      // Authentication Handle
       loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         authStatus.className = 'form-status';
@@ -396,7 +386,7 @@
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value;
 
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) {
           authStatus.textContent = error.message;
           authStatus.className = 'form-status error';
@@ -414,6 +404,7 @@
         authScreen.classList.add('hidden');
         dashboardScreen.classList.remove('hidden');
         loadProjects();
+        renderBlocks();
       }
 
       function hideDashboard() {
@@ -422,18 +413,188 @@
         loginForm.reset();
       }
 
-      // Tab selector logic
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-          
-          btn.classList.add('active');
-          document.getElementById(btn.dataset.tab).classList.add('active');
+      // ── BLOCK BUILDER ENGINE ─────────────────────────────────
+      
+      window.addHeadingBlock = (content = { uz: '', ru: '', en: '' }) => {
+        blocks.push({
+          id: Date.now() + Math.random().toString(36).substr(2, 5),
+          type: 'heading',
+          content: { ...content }
         });
-      });
+        renderBlocks();
+      };
 
-      // Load projects from database
+      window.addTextBlock = (content = { uz: '', ru: '', en: '' }) => {
+        blocks.push({
+          id: Date.now() + Math.random().toString(36).substr(2, 5),
+          type: 'text',
+          content: { ...content }
+        });
+        renderBlocks();
+      };
+
+      window.addMediaBlock = (media = []) => {
+        blocks.push({
+          id: Date.now() + Math.random().toString(36).substr(2, 5),
+          type: 'media',
+          media: [...media] // array of media items
+        });
+        renderBlocks();
+      };
+
+      window.addMediaItem = (blockIndex) => {
+        blocks[blockIndex].media.push({
+          id: Date.now() + Math.random().toString(36).substr(2, 5),
+          type: 'image', // default
+          url: '',
+          caption: { uz: '', ru: '', en: '' }
+        });
+        renderBlocks();
+      };
+
+      window.removeMediaItem = (blockIndex, itemIndex) => {
+        blocks[blockIndex].media.splice(itemIndex, 1);
+        renderBlocks();
+      };
+
+      window.removeBlock = (index) => {
+        blocks.splice(index, 1);
+        renderBlocks();
+      };
+
+      window.moveBlock = (index, direction) => {
+        const targetIndex = index + direction;
+        if (targetIndex < 0 || targetIndex >= blocks.length) return;
+        const temp = blocks[index];
+        blocks[index] = blocks[targetIndex];
+        blocks[targetIndex] = temp;
+        renderBlocks();
+      };
+
+      // Save input edits back into global blocks array
+      function saveInputs() {
+        blocks.forEach((block, index) => {
+          if (block.type === 'heading' || block.type === 'text') {
+            block.content.uz = document.getElementById(`content_uz_${block.id}`)?.value || '';
+            block.content.ru = document.getElementById(`content_ru_${block.id}`)?.value || '';
+            block.content.en = document.getElementById(`content_en_${block.id}`)?.value || '';
+          } else if (block.type === 'media') {
+            block.media.forEach((item, itemIdx) => {
+              item.type = document.getElementById(`media_type_${block.id}_${item.id}`)?.value || 'image';
+              item.url = document.getElementById(`media_url_${block.id}_${item.id}`)?.value || '';
+              
+              item.caption = {
+                uz: document.getElementById(`caption_uz_${block.id}_${item.id}`)?.value || '',
+                ru: document.getElementById(`caption_ru_${block.id}_${item.id}`)?.value || '',
+                en: document.getElementById(`caption_en_${block.id}_${item.id}`)?.value || '',
+              };
+            });
+          }
+        });
+      }
+
+      function renderBlocks() {
+        saveInputs(); // Save before redraw
+        
+        if (blocks.length === 0) {
+          blocksContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 40px 0; border: 1px dashed var(--border-color); border-radius: 8px;">Bloklar yo\'q. Case study yaratish uchun pastdagi tugmalarni bosing.</p>';
+          return;
+        }
+
+        blocksContainer.innerHTML = blocks.map((block, index) => {
+          const upBtn = index > 0 ? `<button type="button" class="block-control-btn" onclick="window.moveBlock(${index}, -1)">▲</button>` : '';
+          const downBtn = index < blocks.length - 1 ? `<button type="button" class="block-control-btn" onclick="window.moveBlock(${index}, 1)">▼</button>` : '';
+          
+          let contentHtml = '';
+          
+          if (block.type === 'heading' || block.type === 'text') {
+            const rows = block.type === 'text' ? 'rows="3"' : '';
+            const field = block.type === 'text' ? 'textarea' : 'input type="text"';
+            
+            contentHtml = `
+              <div class="form-group">
+                <label>Matn (UZ)</label>
+                <${field} id="content_uz_${block.id}" class="form-input" ${rows} placeholder="Loyiha matni uzbekcha...">${block.content.uz || ''}</${block.type === 'text' ? 'textarea' : 'input'}>
+              </div>
+              <div class="form-group">
+                <label>Текст (RU)</label>
+                <${field} id="content_ru_${block.id}" class="form-input" ${rows} placeholder="Текст на русском...">${block.content.ru || ''}</${block.type === 'text' ? 'textarea' : 'input'}>
+              </div>
+              <div class="form-group">
+                <label>Text (EN)</label>
+                <${field} id="content_en_${block.id}" class="form-input" ${rows} placeholder="Text in English...">${block.content.en || ''}</${block.type === 'text' ? 'textarea' : 'input'}>
+              </div>
+            `;
+          } else if (block.type === 'media') {
+            const itemsHtml = block.media.map((item, itemIdx) => `
+              <div class="media-item-card">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; align-items: center;">
+                  <span style="font-size: 0.8rem; font-weight: 600; color: var(--accent-gold);">Media #${itemIdx + 1}</span>
+                  <button type="button" class="block-control-btn delete" onclick="window.removeMediaItem(${index}, ${itemIdx})">🗑️ O'chirish</button>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Turi</label>
+                    <select id="media_type_${block.id}_${item.id}" class="form-select">
+                      <option value="image" ${item.type === 'image' ? 'selected' : ''}>Rasm</option>
+                      <option value="video" ${item.type === 'video' ? 'selected' : ''}>Video</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Fayl yuklash</label>
+                    <input type="file" id="media_file_${block.id}_${item.id}" class="form-input" accept="image/*,video/*">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Media URL havolasi</label>
+                  <input type="text" id="media_url_${block.id}_${item.id}" class="form-input" placeholder="Rasm yoki video URL havolasi..." value="${item.url || ''}">
+                </div>
+
+                <!-- Multi-lang captions -->
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Tavsif (UZ)</label>
+                    <input type="text" id="caption_uz_${block.id}_${item.id}" class="form-input" placeholder="Rasm tavsifi..." value="${item.caption.uz || ''}">
+                  </div>
+                  <div class="form-group">
+                    <label>Описание (RU)</label>
+                    <input type="text" id="caption_ru_${block.id}_${item.id}" class="form-input" placeholder="Описание..." value="${item.caption.ru || ''}">
+                  </div>
+                  <div class="form-group">
+                    <label>Caption (EN)</label>
+                    <input type="text" id="caption_en_${block.id}_${item.id}" class="form-input" placeholder="Caption..." value="${item.caption.en || ''}">
+                  </div>
+                </div>
+              </div>
+            `).join('');
+
+            contentHtml = `
+              <div class="media-items-container">
+                ${itemsHtml}
+              </div>
+              <button type="button" class="btn btn-outline" style="width: 100%; margin-top: 12px; font-size: 0.8rem; padding: 8px;" onclick="window.addMediaItem(${index})">➕ Media elementi qo'shish</button>
+            `;
+          }
+
+          return `
+            <div class="block-card">
+              <div class="block-header">
+                <span class="block-badge">${block.type}</span>
+                <div class="block-controls">
+                  ${upBtn}
+                  ${downBtn}
+                  <button type="button" class="block-control-btn delete" onclick="window.removeBlock(${index})">🗑️</button>
+                </div>
+              </div>
+              ${contentHtml}
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Load Projects List
       async function loadProjects() {
         projectsList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 40px 0;">Yuklanmoqda...</p>';
         const { data, error } = await supabase
@@ -442,12 +603,12 @@
           .order('id', { ascending: false });
 
         if (error) {
-          projectsList.innerHTML = `<p style="color: #ef9a9a; text-align: center; padding: 40px 0;">Loyiha yuklashda xato: ${error.message}</p>`;
+          projectsList.innerHTML = `<p style="color: #ef9a9a; text-align: center; padding: 40px 0;">Xato: ${error.message}</p>`;
           return;
         }
 
         if (data.length === 0) {
-          projectsList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 40px 0;">Hozircha loyihalar yo\'q.</p>';
+          projectsList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 40px 0;">Loyiha topilmadi.</p>';
           return;
         }
 
@@ -456,62 +617,52 @@
             <div class="project-info">
               <img src="${item.image_url}" class="project-thumb" alt="">
               <div>
-                <h4 style="font-size: 0.95rem; font-weight: 600;">${item.title_uz}</h4>
-                <p style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">${item.category}</p>
+                <h4 style="font-size: 0.9rem; font-weight: 600;">${item.title_uz}</h4>
+                <p style="color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase;">${item.category}</p>
               </div>
             </div>
             <div class="project-actions">
-              <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.75rem;" onclick="window.editProject(${item.id})">Tahrirlash</button>
-              <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.75rem; border-color: rgba(198,40,40,0.4); color: #ef9a9a;" onclick="window.deleteProject(${item.id})">O'chirish</button>
+              <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.7rem;" onclick="window.editProject(${item.id})">Tahrirlash</button>
+              <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.7rem; border-color: rgba(198,40,40,0.4); color: #ef9a9a;" onclick="window.deleteProject(${item.id})">O'chirish</button>
             </div>
           </div>
         `).join('');
       }
 
-      // Add/Edit Project Form Submission
-      projectForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+      // SAVE LAYOUT & MEDIA FILES
+      saveProjectBtn.addEventListener('click', async () => {
+        saveInputs(); // Capture latest edits
+        
         editorStatus.className = 'form-status';
         editorStatus.style.display = 'none';
 
-        const saveBtn = document.getElementById('saveProjectBtn');
-        saveBtn.disabled = true;
-        saveBtn.textContent = 'Saqlanmoqda...';
+        saveProjectBtn.disabled = true;
+        saveProjectBtn.textContent = 'Saqlanmoqda...';
 
         const category = document.getElementById('projCategory').value;
-        const type = document.getElementById('projType').value;
-        const fileInput = document.getElementById('projFile');
-        let imageUrl = document.getElementById('projImageUrl').value.trim();
+        const coverFile = document.getElementById('coverFile');
+        let coverImageUrl = document.getElementById('coverImageUrl').value.trim();
 
-        // Title
+        // Project Core Details
         const title_uz = document.getElementById('projTitleUz').value.trim();
         const title_ru = document.getElementById('projTitleRu').value.trim();
         const title_en = document.getElementById('projTitleEn').value.trim();
 
-        // Tags
         const tags_uz = document.getElementById('projTagsUz').value.trim();
         const tags_ru = document.getElementById('projTagsRu').value.trim();
         const tags_en = document.getElementById('projTagsEn').value.trim();
 
-        // Descriptions
-        const task_uz = document.getElementById('projTaskUz').value.trim();
-        const task_ru = document.getElementById('projTaskRu').value.trim();
-        const task_en = document.getElementById('projTaskEn').value.trim();
-
-        const solution_uz = document.getElementById('projSolutionUz').value.trim();
-        const solution_ru = document.getElementById('projSolutionRu').value.trim();
-        const solution_en = document.getElementById('projSolutionEn').value.trim();
-
-        const result_uz = document.getElementById('projResultUz').value.trim();
-        const result_ru = document.getElementById('projResultRu').value.trim();
-        const result_en = document.getElementById('projResultEn').value.trim();
+        if (!title_uz || !title_ru || !title_en) {
+          showError('Iltimos, loyiha sarlavhalarini kiriting.');
+          return;
+        }
 
         try {
-          // Upload Image to Storage if file selected
-          if (fileInput.files.length > 0) {
-            const file = fileInput.files[0];
+          // Upload Cover Image if file selected
+          if (coverFile.files.length > 0) {
+            const file = coverFile.files[0];
             const fileExt = file.name.split('.').pop();
-            const fileName = `${Date.now()}.${fileExt}`;
+            const fileName = `cover-${Date.now()}.${fileExt}`;
             const filePath = `projects/${fileName}`;
 
             const { error: uploadError } = await supabase.storage
@@ -520,27 +671,55 @@
 
             if (uploadError) throw uploadError;
 
-            // Retrieve public URL
             const { data: { publicUrl } } = supabase.storage
               .from('portfolio-images')
               .getPublicUrl(filePath);
 
-            imageUrl = publicUrl;
+            coverImageUrl = publicUrl;
           }
 
-          if (!imageUrl) {
-            throw new Error('Iltimos, rasm yuklang yoki URL kiriting.');
+          if (!coverImageUrl) {
+            throw new Error('Muqova rasmini (Cover Image) kiriting yoki yuklang.');
+          }
+
+          // Loop and upload files inside Media blocks
+          for (let block of blocks) {
+            if (block.type === 'media') {
+              for (let item of block.media) {
+                const fileInput = document.getElementById(`media_file_${block.id}_${item.id}`);
+                
+                if (fileInput && fileInput.files.length > 0) {
+                  const file = fileInput.files[0];
+                  const fileExt = file.name.split('.').pop();
+                  const fileName = `block-${Date.now()}-${Math.random().toString(36).substr(2, 5)}.${fileExt}`;
+                  const filePath = `projects/${fileName}`;
+
+                  const { error: uploadError } = await supabase.storage
+                    .from('portfolio-images')
+                    .upload(filePath, file);
+
+                  if (uploadError) throw uploadError;
+
+                  const { data: { publicUrl } } = supabase.storage
+                    .from('portfolio-images')
+                    .getPublicUrl(filePath);
+
+                  item.url = publicUrl;
+                }
+              }
+            }
           }
 
           const rowData = {
             category,
-            type,
-            image_url: imageUrl,
+            image_url: coverImageUrl,
             title_uz, title_ru, title_en,
             tags_uz, tags_ru, tags_en,
-            task_uz, task_ru, task_en,
-            solution_uz, solution_ru, solution_en,
-            result_uz, result_ru, result_en
+            type: 'image',
+            task_uz: '', task_ru: '', task_en: '',
+            solution_uz: '', solution_ru: '', solution_en: '',
+            result_uz: '', result_ru: '', result_en: '',
+            layout_blocks: blocks
           };
 
           let responseError = null;
@@ -562,21 +741,24 @@
 
           if (responseError) throw responseError;
 
-          editorStatus.textContent = 'Muvaffaqiyatli saqlandi!';
+          editorStatus.textContent = 'Loyiha muvaffaqiyatli saqlandi!';
           editorStatus.className = 'form-status success';
-          resetEditor();
+          resetForm();
           loadProjects();
 
         } catch (err) {
-          editorStatus.textContent = err.message || 'Xatolik yuz berdi.';
-          editorStatus.className = 'form-status error';
-        } finally {
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Saqlash';
+          showError(err.message || 'Xatolik yuz berdi.');
         }
       });
 
-      // Edit helper
+      function showError(msg) {
+        editorStatus.textContent = msg;
+        editorStatus.className = 'form-status error';
+        saveProjectBtn.disabled = false;
+        saveProjectBtn.textContent = 'Loyihani saqlash';
+        document.querySelector('.dashboard-header').scrollIntoView({ behavior: 'smooth' });
+      }
+
       window.editProject = async (id) => {
         const { data, error } = await supabase
           .from('portfolio_items')
@@ -585,7 +767,7 @@
           .single();
 
         if (error) {
-          alert('Loyihani tahrirlashda xato: ' + error.message);
+          alert('Tahrirlashda xato: ' + error.message);
           return;
         }
 
@@ -594,58 +776,47 @@
         cancelEditBtn.classList.remove('hidden');
 
         document.getElementById('projCategory').value = data.category;
-        document.getElementById('projType').value = data.type;
-        document.getElementById('projImageUrl').value = data.image_url;
+        document.getElementById('coverImageUrl').value = data.image_url;
 
-        // Populate translations
+        // Populate titles
         document.getElementById('projTitleUz').value = data.title_uz;
         document.getElementById('projTitleRu').value = data.title_ru;
         document.getElementById('projTitleEn').value = data.title_en;
 
+        // Populate tags
         document.getElementById('projTagsUz').value = data.tags_uz;
         document.getElementById('projTagsRu').value = data.tags_ru;
         document.getElementById('projTagsEn').value = data.tags_en;
 
-        document.getElementById('projTaskUz').value = data.task_uz;
-        document.getElementById('projTaskRu').value = data.task_ru;
-        document.getElementById('projTaskEn').value = data.task_en;
+        // Populate blocks
+        blocks = data.layout_blocks || [];
+        renderBlocks();
 
-        document.getElementById('projSolutionUz').value = data.solution_uz;
-        document.getElementById('projSolutionRu').value = data.solution_ru;
-        document.getElementById('projSolutionEn').value = data.solution_en;
-
-        document.getElementById('projResultUz').value = data.result_uz;
-        document.getElementById('projResultRu').value = data.result_ru;
-        document.getElementById('projResultEn').value = data.result_en;
-
-        // Scroll to editor
-        document.querySelector('.editor-section').scrollIntoView({ behavior: 'smooth' });
+        document.querySelector('.dashboard-header').scrollIntoView({ behavior: 'smooth' });
       };
 
-      // Delete helper
       window.deleteProject = async (id) => {
-        if (!confirm('Haqiqatdan ham bu loyihani o\'chirmoqchimisiz?')) return;
-
-        const { error } = await supabase
-          .from('portfolio_items')
-          .delete()
-          .eq('id', id);
-
-        if (error) {
-          alert('Loyihani o\'chirishda xato: ' + error.message);
-        } else {
-          if (editItemId === id) resetEditor();
+        if (!confirm('Haqiqatdan ham o\'chirmoqchimisiz?')) return;
+        const { error } = await supabase.from('portfolio_items').delete().eq('id', id);
+        if (error) alert('Xatolik: ' + error.message);
+        else {
+          if (editItemId === id) resetForm();
           loadProjects();
         }
       };
 
-      cancelEditBtn.addEventListener('click', resetEditor);
+      cancelEditBtn.addEventListener('click', resetForm);
 
-      function resetEditor() {
+      function resetForm() {
         editItemId = null;
-        projectForm.reset();
-        editorTitle.textContent = 'Yangi loyiha qo\'shish';
+        document.getElementById('coverForm').reset();
+        document.getElementById('coverImageUrl').value = '';
+        editorTitle.textContent = 'Loyiha muqovasi (Cover)';
         cancelEditBtn.classList.add('hidden');
+        blocks = [];
+        renderBlocks();
+        saveProjectBtn.disabled = false;
+        saveProjectBtn.textContent = 'Loyihani saqlash';
       }
 
     })();
