@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanguage();
   initMobileMenu();
   initHeader();
+  initHeroAnimation();
   renderPortfolio();
   loadDynamicPortfolio();
   renderTestimonials();
@@ -23,6 +24,21 @@ document.addEventListener('DOMContentLoaded', () => {
   initActiveNav();
   initReviewModal();
 });
+
+// ============================================================
+// HERO ENTRY ANIMATION — staggered slide-up
+// ============================================================
+function initHeroAnimation() {
+  const elements = document.querySelectorAll('[data-hero-anim]');
+  if (!elements.length) return;
+
+  elements.forEach(el => {
+    const delay = parseInt(el.dataset.heroAnim, 10) * 120; // 0, 120, 240, 360ms
+    setTimeout(() => {
+      el.classList.add('hero--visible');
+    }, 400 + delay); // 400ms base (after loader fades)
+  });
+}
 
 // ============================================================
 // LOADER

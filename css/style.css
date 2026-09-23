@@ -427,28 +427,23 @@ ul, ol {
 }
 
 /* ============================================================
-   HERO SECTION
+   HERO SECTION — Reference Replica
    ============================================================ */
 .hero {
+  position: relative;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  position: relative;
-  padding: 120px 0 60px;
-}
-
-.hero .editorial-card {
-  width: 100%;
-  min-height: calc(100vh - 180px);
-  margin: 0;
   justify-content: center;
+  overflow: hidden;
 }
 
+/* ── Background image ───────────────────────────────────── */
 .hero__bg {
   position: absolute;
   inset: 0;
   z-index: 0;
-  pointer-events: none;
 }
 
 .hero__bg-image {
@@ -456,90 +451,169 @@ ul, ol {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(0.25) saturate(0.7);
-  transform: scale(1.03);
-  transition: transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
 }
 
-.hero:hover .hero__bg-image {
-  transform: scale(1.0);
-}
-
-.hero__bg::after {
-  content: '';
+/* Radial vignette: warm glow center, dark at edges (matches reference) */
+.hero__bg-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 30%, var(--bg-secondary) 95%);
+  background:
+    radial-gradient(ellipse 70% 65% at 50% 52%,
+      rgba(30, 55, 35, 0.18) 0%,
+      rgba(10, 20, 12, 0.55) 55%,
+      rgba(5, 10, 7, 0.82) 100%);
 }
 
-.hero__frame {
-  position: absolute;
-  inset: 24px;
-  border: 1px solid var(--border-color);
-  pointer-events: none;
-  z-index: 1;
-}
-
+/* ── Centered content ───────────────────────────────────── */
 .hero__content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
-  margin: 0 auto;
   text-align: center;
-  padding: 0 var(--container-pad);
+  padding: 100px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 
-.hero__label {
+/* Name label */
+.hero__name {
   font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--accent-gold);
-  margin-bottom: 24px;
+  font-size: clamp(14px, 1.5vw, 22px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #F0EAD9;
+  margin: 0 0 16px;
   opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.hero__title {
+/* Main headline */
+.hero__headline {
   font-family: var(--font-heading);
   font-style: italic;
-  font-size: clamp(2.8rem, 8vw, 6.2rem);
   font-weight: 500;
-  line-height: 1.05;
-  color: var(--text-primary);
-  margin-bottom: 12px;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  color: #F0EAD9;
+  margin: 0 0 24px;
   opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.hero__subtitle {
+/* Tag list */
+.hero__tags {
   font-family: var(--font-body);
-  font-size: clamp(0.75rem, 2vw, 0.9rem);
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-size: clamp(11px, 1.2vw, 15px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-secondary);
-  margin-bottom: 32px;
+  color: #F0EAD9;
+  margin: 0 0 48px;
   opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.hero__description {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto 40px;
-  line-height: 1.7;
-  opacity: 0;
-}
-
+/* Buttons row */
 .hero__cta {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
   opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Modern Pill Buttons */
+/* ── Glassmorphic pill buttons ───────────────────────────── */
+.hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease;
+  /* glass rim highlight */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.hero__btn--gold {
+  border-color: #C9A46A;
+  color: #C9A46A;
+  background: rgba(201, 164, 106, 0.10);
+}
+
+.hero__btn--cream {
+  border-color: #F0EAD9;
+  color: #F0EAD9;
+  background: rgba(10, 20, 12, 0.45);
+}
+
+.hero__btn:hover {
+  transform: scale(1.02);
+  filter: brightness(1.12);
+}
+
+.hero__btn:active {
+  transform: scale(0.98);
+}
+
+/* ── Entry animations — applied by JS ────────────────────── */
+.hero__name.hero--visible,
+.hero__headline.hero--visible,
+.hero__tags.hero--visible,
+.hero__cta.hero--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Scroll indicator ───────────────────────────────────── */
+.hero__scroll {
+  position: absolute;
+  bottom: 40px;
+  right: 48px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeInScroll 0.8s ease 1.8s forwards;
+}
+
+.hero__scroll span {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(240, 234, 217, 0.4);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, #C9A46A, transparent);
+}
+
+@keyframes fadeInScroll {
+  to { opacity: 1; }
+}
+
+/* ── Shared btn (kept for other sections) ────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -554,6 +628,7 @@ ul, ol {
   background: transparent;
   color: var(--text-primary);
   transition: all var(--transition-fast);
+  text-decoration: none;
 }
 
 .btn-primary {
@@ -574,7 +649,70 @@ ul, ol {
   transform: translateY(-2px);
 }
 
-/* Scroll Affordance Indicator */
+/* ── Responsiveness ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero__headline { font-size: clamp(2rem, 5.5vw, 3.4rem); }
+  .hero__cta { gap: 14px; }
+}
+
+@media (max-width: 640px) {
+  .hero__content { padding: 100px 24px 60px; }
+  .hero__headline { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+  .hero__tags { font-size: 11px; letter-spacing: 0.06em; }
+  .hero__cta {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+  .hero__btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+  .hero__scroll { display: none; }
+}
+
+/* ── Nav overrides to match reference ───────────────────── */
+.header__logo {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #F0EAD9;
+  letter-spacing: -0.01em;
+}
+
+.header__logo span {
+  color: #C9A46A;
+}
+
+.nav__link {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #F0EAD9;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.nav__link:hover,
+.nav__link.active {
+  opacity: 1;
+}
+
+.nav__list {
+  display: flex;
+  gap: 44px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Scroll indicator */
 .hero__scroll {
   position: absolute;
   bottom: 40px;
@@ -584,23 +722,8 @@ ul, ol {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  opacity: 0;
 }
 
-.hero__scroll span {
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
-
-.hero__scroll-line {
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, var(--accent-gold), transparent);
-}
 
 /* ============================================================
    ABOUT SECTION

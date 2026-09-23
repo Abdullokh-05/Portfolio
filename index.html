@@ -79,11 +79,10 @@
       <!-- Desktop Navigation -->
       <nav class="nav" aria-label="Main navigation">
         <ul class="nav__list" role="list">
-          <li><a class="nav__link" href="#about"        data-section="about"        data-i18n="nav.about">Men haqimda</a></li>
-          <li><a class="nav__link" href="#portfolio"    data-section="portfolio"    data-i18n="nav.portfolio">Portfolio</a></li>
-          <li><a class="nav__link" href="#skills"       data-section="skills"       data-i18n="nav.skills">Ko'nikmalar</a></li>
-          <li><a class="nav__link" href="#services"     data-section="services"     data-i18n="nav.services">Xizmatlar</a></li>
-          <li><a class="nav__link" href="#contact"      data-section="contact"      data-i18n="nav.contact">Bog'lanish</a></li>
+          <li><a class="nav__link" href="#about"     data-i18n="nav.about">ABOUT</a></li>
+          <li><a class="nav__link" href="#portfolio" data-i18n="nav.portfolio">WORK</a></li>
+          <li><a class="nav__link" href="#services"  data-i18n="nav.services">SERVICES</a></li>
+          <li><a class="nav__link" href="#contact"   data-i18n="nav.contact">CONTACT</a></li>
         </ul>
       </nav>
 
@@ -137,56 +136,42 @@
     <!-- ──────────────────────────────────────────────────────────
          HERO SECTION
          ────────────────────────────────────────────────────────── -->
-    <section class="hero" id="hero" aria-labelledby="hero-title"><div class="editorial-card">
+    <section class="hero" id="hero" aria-labelledby="hero-title">
 
-      <!-- Background -->
-      <div class="hero__bg">
+      <!-- Full-bleed background image + vignette overlay -->
+      <div class="hero__bg" aria-hidden="true">
         <img
           class="hero__bg-image"
           src="assets/images/hero_bg.jpg"
-          alt="Dark green foliage background — Abdullokh Tashpulatov portfolio"
+          alt=""
           fetchpriority="high"
           decoding="async"
         />
+        <div class="hero__bg-overlay"></div>
       </div>
 
-      <!-- Decorative frame -->
-      <div class="hero__frame" aria-hidden="true"></div>
-
-      <!-- Content -->
+      <!-- Centered content block -->
       <div class="hero__content">
-        <p class="hero__label" data-i18n="hero.label">Abdullokh Tashpulatov tomonidan</p>
 
-        <h1 class="hero__title" id="hero-title" data-i18n="hero.title">
-          Kreativ Dizayner
+        <!-- Name label -->
+        <p class="hero__name" data-hero-anim="0">Abdullokh Tashpulatov</p>
+
+        <!-- Main headline -->
+        <h1 class="hero__headline" id="hero-title" data-hero-anim="1">
+          Graphic Designer &amp; Videographer
         </h1>
 
-        <p class="hero__subtitle" data-i18n="hero.subtitle">
-          &amp; Visual Storyteller
+        <!-- Tag line -->
+        <p class="hero__tags" data-hero-anim="2">
+          BRANDING&nbsp;&nbsp;·&nbsp;&nbsp;SOCIAL MEDIA&nbsp;&nbsp;·&nbsp;&nbsp;VIDEO&nbsp;&nbsp;·&nbsp;&nbsp;AI CONTENT
         </p>
 
-        <p class="hero__description" data-i18n="hero.description">
-          Brendlar uchun kuchli vizual identifikatsiya, video kontent va innovatsion digital yechimlar yarataman.
-        </p>
-
-        <div class="hero__cta">
-          <a
-            href="#portfolio"
-            class="btn btn-primary"
-            id="hero-cta-portfolio"
-            data-i18n="hero.cta"
-          >
-            Ishlarimni ko'rish
-          </a>
-          <a
-            href="#contact"
-            class="btn btn-outline"
-            id="hero-cta-contact"
-            data-i18n="hero.cta2"
-          >
-            Bog'lanish
-          </a>
+        <!-- Buttons -->
+        <div class="hero__cta" data-hero-anim="3">
+          <a href="#portfolio" class="hero__btn hero__btn--gold">VIEW MY WORK</a>
+          <a href="#contact"   class="hero__btn hero__btn--cream">GET IN TOUCH</a>
         </div>
+
       </div>
 
       <!-- Scroll indicator -->
@@ -195,7 +180,7 @@
         <span>scroll</span>
       </div>
 
-    </div></section>
+    </section>
 
     <!-- ──────────────────────────────────────────────────────────
          ABOUT SECTION
