@@ -23,20 +23,27 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initActiveNav();
   initReviewModal();
+  initMagneticControls();
 });
 
 // ============================================================
-// HERO ENTRY ANIMATION — staggered slide-up
+// HERO ENTRY ANIMATION — Emil Kowalski Craft Standards
 // ============================================================
 function initHeroAnimation() {
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const elements = document.querySelectorAll('[data-hero-anim]');
   if (!elements.length) return;
 
+  if (isReduced) {
+    elements.forEach(el => el.classList.add('hero--visible'));
+    return;
+  }
+
   elements.forEach(el => {
-    const delay = parseInt(el.dataset.heroAnim, 10) * 120; // 0, 120, 240, 360ms
+    const delay = parseInt(el.dataset.heroAnim, 10) * 80; // 0, 80, 160, 240ms tight stagger
     setTimeout(() => {
       el.classList.add('hero--visible');
-    }, 400 + delay); // 400ms base (after loader fades)
+    }, 350 + delay);
   });
 }
 
@@ -51,24 +58,51 @@ function initLoader() {
     setTimeout(() => {
       loader.classList.add('hidden');
       document.body.style.overflow = '';
-      // Start hero animations after load
       animateHero();
-    }, 600);
+    }, 450);
   });
 
   document.body.style.overflow = 'hidden';
 }
 
 function animateHero() {
-  if (typeof gsap === 'undefined') return;
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isReduced || typeof gsap === 'undefined') {
+    document.querySelectorAll('.hero__name, .hero__headline, .hero__tags, .hero__cta').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+    return;
+  }
+
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  tl.fromTo('.hero__label',       { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, 0.1)
-    .fromTo('.hero__title',       { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9 }, 0.25)
-    .fromTo('.hero__subtitle',    { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, 0.5)
-    .fromTo('.hero__description', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, 0.7)
-    .fromTo('.hero__cta',         { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, 0.9)
-    .fromTo('.hero__scroll',      { opacity: 0 },        { opacity: 1, duration: 0.5 }, 1.2)
-    .fromTo('.hero__frame',       { opacity: 0, scale: 1.02 }, { opacity: 1, scale: 1, duration: 1 }, 0);
+  tl.fromTo('.hero__name',     { opacity: 0, y: 16, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.6 }, 0.05)
+    .fromTo('.hero__headline', { opacity: 0, y: 24, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.75 }, 0.18)
+    .fromTo('.hero__tags',     { opacity: 0, y: 14 },               { opacity: 1, y: 0, duration: 0.6 }, 0.32)
+    .fromTo('.hero__cta',      { opacity: 0, y: 16, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.6 }, 0.45);
+}
+
+// ============================================================
+// MAGNETIC BUTTONS & MICRO-INTERACTIONS
+// ============================================================
+function initMagneticControls() {
+  // Gated to desktop pointers with fine precision
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const targets = document.querySelectorAll('.hero__btn, .slider-btn, .ai-widget-toggle');
+  targets.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - (rect.left + rect.width / 2);
+      const y = e.clientY - (rect.top + rect.height / 2);
+      btn.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px) scale(1.02)`;
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
 }
 
 // ============================================================
@@ -322,7 +356,11 @@ function initPortfolioFilter() {
           card.classList.remove('hidden');
           gsap.fromTo(card, 
             { opacity: 0, scale: 0.9 }, 
-            { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out', clearProps: 'transform' }
+            { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out', clearProps: 'transform',
+              onComplete: () => {
+                if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+              }
+            }
           );
         });
       } else {
@@ -672,10 +710,11 @@ function initContactForm() {
 // GSAP SCROLL ANIMATIONS
 // ============================================================
 function initScrollAnimations() {
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    // Fallback: show all elements without animation
-    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
-      el.style.opacity = 1;
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  if (isReduced || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .portfolio-card, .skills__category, .service-card').forEach(el => {
+      el.style.opacity = '1';
       el.style.transform = 'none';
     });
     return;
@@ -683,13 +722,13 @@ function initScrollAnimations() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Generic reveal
-  gsap.utils.toArray('.reveal').forEach((el, i) => {
+  // Generic reveal elements
+  gsap.utils.toArray('.reveal').forEach((el) => {
     gsap.fromTo(el,
-      { opacity: 0, y: 30 },
+      { opacity: 0, y: 24, scale: 0.98 },
       {
-        opacity: 1, y: 0,
-        duration: 0.7,
+        opacity: 1, y: 0, scale: 1,
+        duration: 0.65,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: el,
@@ -702,10 +741,10 @@ function initScrollAnimations() {
 
   gsap.utils.toArray('.reveal-left').forEach(el => {
     gsap.fromTo(el,
-      { opacity: 0, x: -40 },
+      { opacity: 0, x: -32 },
       {
         opacity: 1, x: 0,
-        duration: 0.8,
+        duration: 0.75,
         ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 85%', once: true }
       }
@@ -714,65 +753,53 @@ function initScrollAnimations() {
 
   gsap.utils.toArray('.reveal-right').forEach(el => {
     gsap.fromTo(el,
-      { opacity: 0, x: 40 },
+      { opacity: 0, x: 32 },
       {
         opacity: 1, x: 0,
-        duration: 0.8,
+        duration: 0.75,
         ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 85%', once: true }
       }
     );
   });
 
-  gsap.utils.toArray('.reveal-scale').forEach(el => {
-    gsap.fromTo(el,
-      { opacity: 0, scale: 0.92 },
-      {
-        opacity: 1, scale: 1,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-      }
-    );
-  });
-
-  // Stagger for section labels
+  // Stagger for section labels & titles
   gsap.utils.toArray('.section-label').forEach(el => {
     gsap.fromTo(el,
-      { opacity: 0, x: -20 },
+      { opacity: 0, x: -16 },
       {
         opacity: 1, x: 0,
-        duration: 0.6,
+        duration: 0.55,
+        ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 90%', once: true }
       }
     );
   });
 
-  // Stagger for section titles
   gsap.utils.toArray('.section-title').forEach(el => {
     gsap.fromTo(el,
-      { opacity: 0, y: 20 },
+      { opacity: 0, y: 18, scale: 0.99 },
       {
-        opacity: 1, y: 0,
-        duration: 0.8,
+        opacity: 1, y: 0, scale: 1,
+        duration: 0.7,
         ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 88%', once: true }
       }
     );
   });
 
-  // About section
+  // About Section
   const aboutGrid = document.querySelector('.about__grid');
   if (aboutGrid) {
     gsap.fromTo('.about__image-wrap',
-      { opacity: 0, x: -50 },
-      { opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+      { opacity: 0, x: -36, scale: 0.98 },
+      { opacity: 1, x: 0, scale: 1, duration: 0.85, ease: 'power3.out',
         scrollTrigger: { trigger: aboutGrid, start: 'top 80%', once: true }
       }
     );
     gsap.fromTo('.about__content',
-      { opacity: 0, x: 40 },
-      { opacity: 1, x: 0, duration: 1, ease: 'power3.out', delay: 0.2,
+      { opacity: 0, x: 32 },
+      { opacity: 1, x: 0, duration: 0.85, ease: 'power3.out', delay: 0.15,
         scrollTrigger: { trigger: aboutGrid, start: 'top 80%', once: true }
       }
     );
@@ -780,11 +807,11 @@ function initScrollAnimations() {
 
   // Stats counter animation
   gsap.utils.toArray('.about__stat-number').forEach(el => {
-    const target = parseInt(el.textContent);
+    const target = parseInt(el.textContent, 10);
     if (isNaN(target)) return;
     gsap.fromTo({ val: 0 }, { val: target },
       {
-        duration: 1.5,
+        duration: 1.4,
         ease: 'power2.out',
         onUpdate: function() { el.textContent = Math.round(this.targets()[0].val) + (el.dataset.suffix || '+'); },
         scrollTrigger: { trigger: el, start: 'top 85%', once: true }
@@ -792,13 +819,93 @@ function initScrollAnimations() {
     );
   });
 
-  // Testimonial
+  // Services Cards Stagger
+  const servicesGrid = document.querySelector('.services__grid');
+  if (servicesGrid) {
+    ScrollTrigger.batch('.service-card', {
+      start: 'top 88%',
+      once: true,
+      onEnter: batch => gsap.fromTo(batch, 
+        { opacity: 0, y: 24, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power3.out', stagger: 0.08 }
+      )
+    });
+  }
+
+  // Skills Categories Stagger
+  const skillsGrid = document.querySelector('.skills__grid');
+  if (skillsGrid) {
+    ScrollTrigger.batch('.skills__category', {
+      start: 'top 88%',
+      once: true,
+      onEnter: batch => gsap.fromTo(batch,
+        { opacity: 0, y: 24, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power3.out', stagger: 0.08 }
+      )
+    });
+  }
+
+  // Testimonials Slider Reveal
   const testimSlider = document.querySelector('.testimonials__slider');
   if (testimSlider) {
     gsap.fromTo(testimSlider,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8,
+      { opacity: 0, y: 24, scale: 0.98 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: 'power3.out',
         scrollTrigger: { trigger: testimSlider, start: 'top 85%', once: true }
+      }
+    );
+  }
+
+  // Contact Section Form & Info
+  const contactGrid = document.querySelector('.contact__grid');
+  if (contactGrid) {
+    gsap.fromTo('.contact__info',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out',
+        scrollTrigger: { trigger: contactGrid, start: 'top 82%', once: true }
+      }
+    );
+    gsap.fromTo('.contact__form-wrap',
+      { opacity: 0, y: 24, scale: 0.98 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: 'power3.out', delay: 0.1,
+        scrollTrigger: { trigger: contactGrid, start: 'top 82%', once: true }
+      }
+    );
+  }
+
+  // Portfolio Cards Stagger (only visible cards)
+  const portfolioGrid = document.querySelector('.portfolio__grid');
+  if (portfolioGrid) {
+    ScrollTrigger.batch('.portfolio-card:not(.hidden)', {
+      start: 'top 90%',
+      once: true,
+      onEnter: batch => gsap.fromTo(batch,
+        { opacity: 0, y: 24, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power3.out', stagger: 0.06 }
+      )
+    });
+  }
+
+  // Social Links Stagger
+  const socialsWrap = document.querySelector('.contact__socials');
+  if (socialsWrap) {
+    ScrollTrigger.batch('.social-link', {
+      start: 'top 90%',
+      once: true,
+      onEnter: batch => gsap.fromTo(batch,
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.55, ease: 'power3.out', stagger: 0.07 }
+      )
+    });
+  }
+
+  // Footer Reveal
+  const footer = document.querySelector('.footer__inner');
+  if (footer) {
+    gsap.fromTo(footer,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+        scrollTrigger: { trigger: footer, start: 'top 92%', once: true }
       }
     );
   }

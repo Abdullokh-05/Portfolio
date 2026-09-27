@@ -316,7 +316,7 @@ ul, ol {
   color: var(--text-muted);
   padding: 6px 12px;
   border-radius: 15px;
-  transition: all var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .lang-btn:hover {
@@ -338,7 +338,7 @@ ul, ol {
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
   color: var(--text-secondary);
 }
 
@@ -625,15 +625,15 @@ ul, ol {
   align-items: center;
   gap: 10px;
   padding: 14px 32px;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   border-radius: 40px;
   border: 1px solid var(--border-color);
   background: transparent;
   color: var(--text-primary);
-  transition: all var(--transition-fast);
+  transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
   text-decoration: none;
 }
 
@@ -882,7 +882,7 @@ ul, ol {
   border: 1px solid var(--border-color);
   border-radius: 30px;
   color: var(--text-secondary);
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
   background: transparent;
 }
 
@@ -907,7 +907,7 @@ ul, ol {
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  transition: all var(--transition-med);
+  transition: transform var(--transition-med), border-color var(--transition-med), box-shadow var(--transition-med), background-color var(--transition-med);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -966,7 +966,7 @@ ul, ol {
   padding: 12px 28px;
   border: 1px solid var(--accent-gold);
   border-radius: 30px;
-  transition: all var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .portfolio-card__view-btn:hover {
@@ -1119,7 +1119,7 @@ ul, ol {
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .slider-btn:hover {
@@ -1138,7 +1138,7 @@ ul, ol {
   height: 6px;
   border-radius: 50%;
   background: var(--text-muted);
-  transition: all var(--transition-fast);
+  transition: width var(--transition-fast), background-color var(--transition-fast), border-radius var(--transition-fast);
 }
 
 .slider-dot.active {
@@ -1257,7 +1257,7 @@ ul, ol {
   padding: 40px 32px;
   position: relative;
   overflow: hidden;
-  transition: all var(--transition-med);
+  transition: transform var(--transition-med), border-color var(--transition-med), box-shadow var(--transition-med), background-color var(--transition-med);
 }
 
 .service-card:hover {
@@ -1327,7 +1327,7 @@ ul, ol {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  transition: all var(--transition-fast);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .social-link:hover {
@@ -1525,7 +1525,7 @@ ul, ol {
   color: var(--text-primary);
   font-size: 1rem;
   z-index: 10;
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .modal__close:hover {
@@ -1593,7 +1593,7 @@ ul, ol {
 .star-rating .star-btn {
   font-size: 1.8rem;
   color: var(--text-muted);
-  transition: all var(--transition-fast);
+  transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
 .star-rating .star-btn.active {
@@ -1654,7 +1654,7 @@ ul, ol {
   opacity: 0;
   pointer-events: none;
   transform: translateY(20px) scale(0.95);
-  transition: all var(--transition-med);
+  transition: opacity var(--transition-med), transform var(--transition-med);
 }
 
 .ai-chat-window.active {
@@ -1817,7 +1817,7 @@ ul, ol {
 
 .ai-chat-window__send {
   color: var(--text-secondary);
-  transition: all var(--transition-fast);
+  transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
 .ai-chat-window__send:hover {
@@ -2829,3 +2829,71 @@ ul, ol {
    (skill level badges, filter pills) use blur(6-10px) max
    to avoid GPU overload on pages with many repeated elements.
    ============================================================ */
+
+/* ============================================================
+   REDUCED MOTION — animate skill requirement
+   Every animation must ship its prefers-reduced-motion variant.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .hero__name,
+  .hero__headline,
+  .hero__tags,
+  .hero__cta {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .portfolio-card,
+  .service-card,
+  .skills__category {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .portfolio-card,
+  .service-card,
+  .social-link,
+  .filter-btn,
+  .slider-btn,
+  .modal__close {
+    transition:
+      border-color var(--transition-fast),
+      background-color var(--transition-fast),
+      color var(--transition-fast) !important;
+  }
+  .footer__inner {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .ai-chat-window {
+    transition: opacity var(--transition-fast) !important;
+    transform: none !important;
+  }
+  .ai-chat-window.active {
+    transform: none !important;
+  }
+}
+
+/* ── Hover gate: transform hovers for pointer devices only ── */
+@media not all and (hover: hover) {
+  .portfolio-card:hover,
+  .service-card:hover,
+  .skills__category:hover,
+  .social-link:hover {
+    transform: none;
+  }
+}
+
+/* ── Hover + pointer fine: explicit card transforms ── */
+@media (hover: hover) and (pointer: fine) {
+  .portfolio-card:hover  { transform: translateY(-6px); }
+  .service-card:hover    { transform: translateY(-4px); }
+  .social-link:hover     { transform: translateX(4px);  }
+}
