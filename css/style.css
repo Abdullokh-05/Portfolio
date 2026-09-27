@@ -12,22 +12,22 @@
   --bg-card-hover:      hsla(140, 20%, 15%, 0.85); /* Slightly lighter glass hover state */
   --bg-overlay:         hsla(140, 30%, 4%, 0.94);  /* Backdrop screen overlay */
   
-  --text-primary:       hsl(40, 25%, 90%);     /* Warm cream white */
-  --text-secondary:     hsl(40, 15%, 75%);     /* Soft gold-gray */
-  --text-muted:         hsl(40, 8%, 52%);      /* Muted charcoal gold */
+  --text-primary:       hsl(40, 25%, 92%);     /* Crisp warm ivory white */
+  --text-secondary:     hsl(40, 15%, 78%);     /* Soft gold-tinted cream */
+  --text-muted:         hsl(40, 10%, 62%);     /* Legible warm muted tone (>5:1 contrast) */
   --text-inverse:       hsl(140, 25%, 5%);     /* Contrast background match */
 
-  --accent-gold:        hsl(40, 48%, 62%);     /* Exquisite brushed gold */
-  --accent-gold-light:  hsl(40, 58%, 72%);     /* Soft champagne glow */
+  --accent-gold:        hsl(40, 48%, 64%);     /* Exquisite brushed champagne gold */
+  --accent-gold-light:  hsl(40, 58%, 74%);     /* Soft champagne highlight */
   --accent-green:       hsl(145, 35%, 32%);    /* Forest green highlights */
   --accent-green-light: hsl(145, 40%, 48%);    /* Bright mint detail */
   
-  --border-color:       hsla(40, 15%, 90%, 0.08); /* Minimal warm border */
-  --border-hover:       hsla(40, 48%, 62%, 0.4);  /* Subtle gold halo border */
+  --border-color:       hsla(40, 15%, 90%, 0.10); /* Subtle warm border */
+  --border-hover:       hsla(40, 48%, 64%, 0.45); /* Gold halo border */
   
   /* Typography */
   --font-heading:       'Playfair Display', Georgia, serif;
-  --font-body:          'Inter', system-ui, -apple-system, sans-serif;
+  --font-body:          'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
   /* Spacing */
   --section-padding:    clamp(60px, 8vw, 120px);
@@ -39,11 +39,10 @@
   --transition-med:     350ms cubic-bezier(0.16, 1, 0.3, 1);
   --transition-slow:    650ms cubic-bezier(0.16, 1, 0.3, 1);
   
-  /* Shadows */
-  --shadow-sm:          0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-md:          0 10px 30px rgba(0, 0, 0, 0.55);
-  --shadow-lg:          0 20px 50px rgba(0, 0, 0, 0.7);
-  --shadow-glow:        0 0 35px hsla(40, 48%, 62%, 0.08);
+  /* Shadows — Natural directional elevation */
+  --shadow-sm:          0 4px 14px rgba(0, 0, 0, 0.35);
+  --shadow-md:          0 10px 28px rgba(0, 0, 0, 0.45);
+  --shadow-lg:          0 20px 48px rgba(0, 0, 0, 0.6);
 }
 
 /* Light mode overrides (Tailored HSL Sand & Forest) */
@@ -64,7 +63,6 @@
   --shadow-sm:          0 4px 12px rgba(20, 35, 25, 0.05);
   --shadow-md:          0 10px 30px rgba(20, 35, 25, 0.08);
   --shadow-lg:          0 20px 50px rgba(20, 35, 25, 0.12);
-  --shadow-glow:        0 0 35px rgba(212, 175, 55, 0.05);
 }
 
 /* ── Reset & Base Styles ── */
@@ -79,15 +77,21 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   font-family: var(--font-body);
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.6;
-  overflow-x: hidden;
+  line-height: 1.65;
+  caret-color: var(--accent-gold);
   transition: background-color var(--transition-med), color var(--transition-med);
+}
+
+::selection {
+  background: rgba(201, 164, 106, 0.28);
+  color: #FFFFFF;
 }
 
 img {
@@ -99,6 +103,7 @@ img {
 a {
   text-decoration: none;
   color: inherit;
+  text-underline-offset: 4px;
   transition: color var(--transition-fast);
 }
 
@@ -121,7 +126,7 @@ ul, ol {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-secondary);
+  background: rgba(201, 164, 106, 0.25);
   border: 2px solid var(--bg-primary);
   border-radius: 4px;
 }
@@ -143,9 +148,9 @@ ul, ol {
 
 .section-label {
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.80rem;
   font-weight: 600;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.20em;
   text-transform: uppercase;
   color: var(--accent-gold);
   margin-bottom: 16px;
@@ -213,15 +218,14 @@ ul, ol {
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 20px 0;
-  transition: padding var(--transition-med), background var(--transition-med), border-color var(--transition-med);
+  padding: 16px 0;
+  transition: background var(--transition-med), border-color var(--transition-med), box-shadow var(--transition-med);
   border-bottom: 1px solid transparent;
 }
 
 .header.scrolled {
-  padding: 12px 0;
   background: var(--bg-overlay);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
   border-bottom-color: var(--border-color);
   box-shadow: var(--shadow-sm);
 }
@@ -252,13 +256,13 @@ ul, ol {
 .nav__list {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 36px;
 }
 
 .nav__link {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 500;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-secondary);
   padding: 8px 0;
@@ -271,10 +275,12 @@ ul, ol {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 0;
+  width: 100%;
   height: 1px;
   background: var(--accent-gold);
-  transition: width var(--transition-med);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-med);
 }
 
 .nav__link:hover,
@@ -284,7 +290,7 @@ ul, ol {
 
 .nav__link:hover::after,
 .nav__link.active::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 /* Controls */
@@ -305,7 +311,7 @@ ul, ol {
 }
 
 .lang-btn {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
   padding: 6px 12px;
@@ -808,11 +814,11 @@ ul, ol {
 }
 
 .about__stat-label {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
   text-transform: uppercase;
   margin-top: 4px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-align: center;
 }
 
@@ -862,20 +868,20 @@ ul, ol {
 /* Filters */
 .portfolio__filters {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 40px;
 }
 
 .filter-btn {
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 10px 24px;
   border: 1px solid var(--border-color);
   border-radius: 30px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   transition: all var(--transition-fast);
   background: transparent;
 }
@@ -884,7 +890,7 @@ ul, ol {
 .filter-btn.active {
   border-color: var(--accent-gold);
   color: var(--accent-gold);
-  background: rgba(212, 175, 55, 0.05);
+  background: rgba(201, 164, 106, 0.08);
 }
 
 /* Responsive Grid */
@@ -908,9 +914,9 @@ ul, ol {
 }
 
 .portfolio-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   border-color: var(--border-hover);
-  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  box-shadow: var(--shadow-lg);
 }
 
 .portfolio-card.hidden {
@@ -952,9 +958,9 @@ ul, ol {
 }
 
 .portfolio-card__view-btn {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent-gold);
   padding: 12px 28px;
@@ -974,9 +980,9 @@ ul, ol {
 }
 
 .portfolio-card__tag {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
   color: var(--accent-gold);
   margin-bottom: 10px;
@@ -995,7 +1001,7 @@ ul, ol {
    TESTIMONIALS SECTION
    ============================================================ */
 .testimonials {
-  background: var(--bg-secondary);
+  position: relative;
   overflow: hidden;
 }
 
@@ -1090,7 +1096,7 @@ ul, ol {
 }
 
 .testimonial-card__role {
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   margin-top: 2px;
 }
@@ -1119,7 +1125,7 @@ ul, ol {
 .slider-btn:hover {
   border-color: var(--accent-gold);
   color: var(--accent-gold);
-  background: rgba(212, 175, 55, 0.05);
+  background: rgba(201, 164, 106, 0.08);
 }
 
 .slider-dots {
@@ -1203,10 +1209,10 @@ ul, ol {
 }
 
 .skill-item__icon {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--accent-gold);
-  background: rgba(212, 175, 55, 0.08);
+  background: rgba(201, 164, 106, 0.10);
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -1217,12 +1223,12 @@ ul, ol {
 }
 
 .skill-item__name {
-  font-size: 0.88rem;
+  font-size: 0.90rem;
   color: var(--text-secondary);
 }
 
 .skill-item__level {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -1231,9 +1237,9 @@ ul, ol {
 }
 
 /* Badge colors */
-.skill-item__level.expert { background: rgba(212, 175, 55, 0.12); color: var(--accent-gold-light); }
-.skill-item__level.advanced { background: rgba(26, 43, 32, 0.4); color: var(--accent-green-light); border: 1px solid var(--accent-green); }
-.skill-item__level.intermediate { background: rgba(240, 234, 217, 0.05); color: var(--text-secondary); }
+.skill-item__level.expert { background: rgba(201, 164, 106, 0.15); color: var(--accent-gold-light); }
+.skill-item__level.advanced { background: rgba(26, 43, 32, 0.5); color: var(--accent-green-light); border: 1px solid var(--accent-green); }
+.skill-item__level.intermediate { background: rgba(240, 234, 217, 0.08); color: var(--text-secondary); }
 
 /* ============================================================
    SERVICES SECTION
@@ -1254,27 +1260,10 @@ ul, ol {
   transition: all var(--transition-med);
 }
 
-.service-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-gold), var(--accent-green-light));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--transition-med);
-}
-
 .service-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   border-color: var(--border-hover);
   box-shadow: var(--shadow-md);
-}
-
-.service-card:hover::after {
-  transform: scaleX(1);
 }
 
 .service-card__number {
@@ -1289,7 +1278,7 @@ ul, ol {
 }
 
 .service-card:hover .service-card__number {
-  color: rgba(212, 175, 55, 0.15);
+  color: rgba(201, 164, 106, 0.25);
 }
 
 .service-card__title {
@@ -1302,7 +1291,7 @@ ul, ol {
 }
 
 .service-card__desc {
-  font-size: 0.88rem;
+  font-size: 0.90rem;
   color: var(--text-secondary);
   line-height: 1.7;
 }
@@ -1354,7 +1343,7 @@ ul, ol {
 
 .social-link__name {
   font-weight: 600;
-  font-size: 0.88rem;
+  font-size: 0.90rem;
   color: var(--text-primary);
 }
 
@@ -1363,7 +1352,7 @@ ul, ol {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 16px;
-  padding: clamp(24px, 5vw, 48px);
+  padding: clamp(28px, 5vw, 48px);
 }
 
 .contact-form .form-group {
@@ -1372,9 +1361,9 @@ ul, ol {
 
 .form-label {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent-gold);
   margin-bottom: 8px;
@@ -1556,9 +1545,9 @@ ul, ol {
 }
 
 .modal__tag {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent-gold);
   margin-bottom: 12px;
@@ -1587,17 +1576,17 @@ ul, ol {
 }
 
 .case-item__label {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent-gold);
 }
 
 .case-item__text {
-  font-size: 0.88rem;
+  font-size: 0.90rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 /* Star Rating widget in review modal */
@@ -1609,7 +1598,6 @@ ul, ol {
 
 .star-rating .star-btn.active {
   color: var(--accent-gold);
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
 }
 
 /* ============================================================
@@ -1630,11 +1618,11 @@ ul, ol {
   font-size: 1.45rem;
   box-shadow: var(--shadow-lg);
   z-index: 1000;
-  transition: transform var(--transition-fast);
+  transition: transform var(--transition-fast), background var(--transition-fast);
 }
 
 .ai-widget-toggle:hover {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .ai-widget-toggle.active {
@@ -1645,18 +1633,7 @@ ul, ol {
 }
 
 .ai-widget-toggle__pulse {
-  position: absolute;
-  inset: -4px;
-  border: 1.5px solid var(--accent-gold);
-  border-radius: 50%;
-  opacity: 0;
-  animation: pulseWidget 2.2s infinite;
-  pointer-events: none;
-}
-
-@keyframes pulseWidget {
-  0% { transform: scale(0.95); opacity: 0.6; }
-  100% { transform: scale(1.22); opacity: 0; }
+  display: none;
 }
 
 /* Chat Window Box */
@@ -1714,13 +1691,14 @@ ul, ol {
 }
 
 .ai-chat-window__status {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--accent-gold);
   display: flex;
   align-items: center;
   gap: 6px;
   text-transform: uppercase;
   font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
 .ai-chat-window__status::before {
@@ -1764,10 +1742,10 @@ ul, ol {
 }
 
 .ai-chat-msg__text {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   padding: 10px 14px;
   border-radius: 12px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .ai-chat-msg--bot .ai-chat-msg__text {
@@ -1787,7 +1765,7 @@ ul, ol {
 .ai-chat-typing__dots {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   padding: 10px 14px;
   background: var(--bg-card);
   border-radius: 12px;
@@ -1800,7 +1778,7 @@ ul, ol {
   border-radius: 50%;
   background: var(--text-muted);
   display: inline-block;
-  animation: typingDot 1.4s infinite ease-in-out;
+  opacity: 0.4;
 }
 
 .ai-chat-typing__dots span:nth-child(2) { animation-delay: 200ms; }
@@ -1940,7 +1918,7 @@ ul, ol {
 
   .filter-btn {
     padding: 8px 16px;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     flex-grow: 1;
     text-align: center;
   }
@@ -2455,7 +2433,7 @@ ul, ol {
 .portfolio-card:hover {
   background: rgba(16, 30, 20, 0.65);
   border-color: rgba(201, 164, 106, 0.35);
-  box-shadow: var(--glass-lift-lg), var(--glass-rim), 0 0 30px rgba(201, 164, 106, 0.06);
+  box-shadow: var(--glass-lift-lg), var(--glass-rim), 0 12px 36px rgba(0, 0, 0, 0.45);
 }
 
 /* View btn glass pill inside card */
@@ -2718,7 +2696,7 @@ ul, ol {
   backdrop-filter: blur(28px) saturate(170%);
   -webkit-backdrop-filter: blur(28px) saturate(170%);
   border: 1px solid var(--glass-border-base);
-  box-shadow: var(--glass-lift-lg), var(--glass-rim), 0 0 80px rgba(0,0,0,0.6);
+  box-shadow: var(--glass-lift-lg), var(--glass-rim), 0 24px 64px rgba(0, 0, 0, 0.65);
   position: relative;
   overflow: hidden;
 }
